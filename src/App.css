@@ -59,14 +59,9 @@ footer {
   width: 100%;
 }
 
-.article-card-details {
-  display: flex;
-  flex-direction: column;
-}
-
 .votes-comments {
-  align-self: flex-end;
-  margin-bottom: 0
+  text-align: right;
+  margin-bottom: 0px
 }
 
 @media (max-width: 960px) {
