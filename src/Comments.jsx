@@ -1,27 +1,38 @@
 import { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { getArticle } from "./ApiCalls"
 import { Banner } from "./Banner"
 import { Footer } from "./Footer"
 import { Loading } from "./Loading"
+import { getComments } from "./ApiCalls"
+import { CommentCard } from "./CommentCard"
 
-export const Article = ({ isLoading, setIsLoading }) => {
+export const Comments = ({ isLoading, setIsLoading }) => {
     const params = useParams()
     const { article_id } = params
 
     const [article, setArticle] = useState({})
+    const [comments, setComments] = useState([])
 
     const { title, topic, body, author, created_at, votes, article_img_url, comment_count } = article
     const date = new Date(created_at)
     const dateFormatted = date.toLocaleDateString("en-GB", { day: 'numeric', month: 'long', year: 'numeric' });
 
-    const navigate = useNavigate()
 
     useEffect(() => {
         setIsLoading(true)
         getArticle(article_id)
             .then((article) => {
                 setArticle(article)
+                setIsLoading(false)
+            })
+    }, [])
+
+    useEffect(() => {
+        setIsLoading(true)
+        getComments(article_id)
+            .then((comments) => {
+                setComments(comments)
                 setIsLoading(false)
             })
     }, [])
@@ -41,22 +52,18 @@ export const Article = ({ isLoading, setIsLoading }) => {
                     <p>{topic}</p>
                 </div>
 
-                <div class="article-body">
-                    <img src={article_img_url} alt="title" />
-                    <p>{body}</p>
-                </div>
+                <h1>Comments</h1>
 
-                <div class="article-buttons">
-                    <p>{votes}👍 <button>vote</button> {comment_count}💬 <button onClick={() => { navigate("./comments") }}>comments</button></p>
-                </div>
-
+                {comments.map((comment) => {
+                    return (
+                        <CommentCard comment={comment} key={comment.comment_id} />
+                    )
+                })}
             </div>
-
 
 
 
             <Footer />
         </div>
-
     )
 }

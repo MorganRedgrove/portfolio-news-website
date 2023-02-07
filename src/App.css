@@ -67,13 +67,14 @@ a {
 }
 
 .article-card-text {
-  height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .article-card-buttons {
   text-align: right;
-  margin-bottom: 0px
+  margin-top: auto
 }
 
 /* article */
@@ -98,6 +99,43 @@ a {
   text-align: justify;
   font-size: larger;
 }
+
+/* comment card */
+.comment-card {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.comment-card img {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+  border-radius: 25px;
+  margin: 5px
+}
+
+.comment-card-user {
+  width: 120px;
+  font-size: x-small;
+  text-align: center;
+}
+
+.comment-card-text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-card-timestamp {
+  font-size: small;
+  font-style: italic;
+  margin-top: auto;
+}
+
 
 /* media breakpoints */
 @media (max-width: 960px) {

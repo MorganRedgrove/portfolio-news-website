@@ -5,6 +5,7 @@ import { Home } from "./Home";
 import { Articles } from "./Articles";
 import { Article } from "./Article";
 import { getArticles } from "./ApiCalls"
+import { Comments } from "./Comments";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<Home/>}></Route>
         <Route path="/articles" element={<Articles articles={articles} isLoading={isLoading}/>}></Route>
         <Route path="/articles/:article_id" element={<Article isLoading={isLoading} setIsLoading={setIsLoading}/>}></Route>
+        <Route path="/articles/:article_id/comments" element={<Comments isLoading={isLoading} setIsLoading={setIsLoading}/>}></Route>
       </Routes>
     </div>
   )
