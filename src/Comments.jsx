@@ -53,6 +53,7 @@ export const Comments = ({ isLoading, setIsLoading }) => {
                 </div>
 
                 <h1>Comments</h1>
+                <p>{comment_count}💬</p>
 
                 {comments.map((comment) => {
                     return (
