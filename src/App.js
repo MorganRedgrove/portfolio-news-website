@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./Home";
 import { Articles } from "./Articles";
+import { Article } from "./Article";
 import { getArticles } from "./ApiCalls"
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/articles" element={<Articles articles={articles} isLoading={isLoading}/>}></Route>
+        <Route path="/articles/:article_id" element={<Article isLoading={isLoading} setIsLoading={setIsLoading}/>}></Route>
       </Routes>
     </div>
   )

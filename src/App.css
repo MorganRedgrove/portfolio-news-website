@@ -8,6 +8,7 @@ html {
   text-align: center;
 }
 
+/* wire frame */
 header,
 footer,
 div {
@@ -24,6 +25,11 @@ footer {
   height: 60px
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
 #loading-message {
   margin-top: 50px;
   margin-bottom: 50px;
@@ -36,6 +42,7 @@ footer {
   margin-right: 20%;
 }
 
+/* article cards */
 .article-card {
   width: auto;
   display: flex;
@@ -64,11 +71,35 @@ footer {
   width: 100%;
 }
 
-.votes-comments {
+.article-card-buttons {
   text-align: right;
   margin-bottom: 0px
 }
 
+/* article */
+.article-details {
+  font-style: italic;
+}
+
+.article-body {
+  min-height: 370px;
+}
+
+.article-body img {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+  float: right;
+  margin: 10px
+}
+
+.article-body p {
+  text-align: justify;
+  font-size: larger;
+}
+
+/* media breakpoints */
 @media (max-width: 960px) {
   #content {
     margin-left: 10%;
@@ -88,5 +119,11 @@ footer {
 
   .article-card img {
     width: 100%;
+  }
+
+  .article-body img {
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
