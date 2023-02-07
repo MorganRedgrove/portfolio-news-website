@@ -6,12 +6,15 @@ import { Articles } from "./Articles";
 import { getArticles } from "./ApiCalls"
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true)
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
+    setIsLoading(true)
     getArticles()
         .then((articles) => {
             setArticles(articles)
+            setIsLoading(false)
         })
 }, [])
 
@@ -19,7 +22,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home/>}></Route>
-        <Route path="/articles" element={<Articles articles={articles}/>}></Route>
+        <Route path="/articles" element={<Articles articles={articles} isLoading={isLoading}/>}></Route>
       </Routes>
     </div>
   )
