@@ -1,11 +1,15 @@
-import { useState } from "react"
+import { useContext } from "react"
+
 import { Banner } from "./Banner"
 import { Footer } from "./Footer"
 import { ArticleCard } from "./ArticleCard"
 import { Loading } from "./Loading"
 
-export const Articles = ({ articles, isLoading }) => {
+import { LoadingContext } from "./contexts/Loading"
 
+
+export const Articles = ({ articles }) => {
+    const { isLoading, setIsLoading } = useContext(LoadingContext)
 
     return (
         <div>

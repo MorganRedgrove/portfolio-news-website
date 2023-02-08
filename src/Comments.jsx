@@ -1,15 +1,21 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
-import { getArticle } from "./ApiCalls"
+
 import { Banner } from "./Banner"
 import { Footer } from "./Footer"
 import { Loading } from "./Loading"
-import { getComments } from "./ApiCalls"
-import { CommentCard } from "./CommentCard"
+import { ArticleCommentCards } from "./ArticleCommentCards"
 
-export const Comments = ({ isLoading, setIsLoading }) => {
+import { getArticle } from "./ApiCalls"
+
+import { LoadingContext } from "./contexts/Loading"
+
+
+export const Comments = () => {
     const params = useParams()
     const { article_id } = params
+
+    const { isLoading, setIsLoading } = useContext(LoadingContext)
 
     const [article, setArticle] = useState({})
     const [comments, setComments] = useState([])
@@ -24,15 +30,6 @@ export const Comments = ({ isLoading, setIsLoading }) => {
         getArticle(article_id)
             .then((article) => {
                 setArticle(article)
-                setIsLoading(false)
-            })
-    }, [])
-
-    useEffect(() => {
-        setIsLoading(true)
-        getComments(article_id)
-            .then((comments) => {
-                setComments(comments)
                 setIsLoading(false)
             })
     }, [])
@@ -55,14 +52,11 @@ export const Comments = ({ isLoading, setIsLoading }) => {
                 <h1>Comments</h1>
                 <p>{comment_count}💬</p>
 
-                {comments.map((comment) => {
-                    return (
-                        <CommentCard comment={comment} key={comment.comment_id} />
-                    )
-                })}
+                {comment_count === 0 ?
+                    <h2>Be the first to comment...</h2> :
+                    <ArticleCommentCards article_id={article_id} comment_count={comment_count} display_count={comment_count} />
+                }
             </div>
-
-
 
             <Footer />
         </div>

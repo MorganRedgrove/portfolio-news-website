@@ -1,23 +1,29 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { getArticle, getComments } from "./ApiCalls"
+
 import { Banner } from "./Banner"
 import { Footer } from "./Footer"
 import { Loading } from "./Loading"
-import { CommentCard } from "./CommentCard"
+import { ArticleCommentCards } from "./ArticleCommentCards"
 
-export const Article = ({ isLoading, setIsLoading }) => {
+import { getArticle } from "./ApiCalls"
+
+import { LoadingContext } from "./contexts/Loading"
+
+
+export const Article = () => {
     const params = useParams()
     const { article_id } = params
 
+    const { isLoading, setIsLoading } = useContext(LoadingContext)
+
     const [article, setArticle] = useState({})
-    const [comments, setComments] = useState([])
 
     const { title, topic, body, author, created_at, votes, article_img_url, comment_count } = article
     const date = new Date(created_at)
     const dateFormatted = date.toLocaleDateString("en-GB", { day: 'numeric', month: 'long', year: 'numeric' });
 
-    const navigate = useNavigate()
+
 
     useEffect(() => {
         setIsLoading(true)
@@ -28,14 +34,7 @@ export const Article = ({ isLoading, setIsLoading }) => {
             })
     }, [])
 
-    useEffect(() => {
-        setIsLoading(true)
-        getComments(article_id)
-            .then((comments) => {
-                setComments(comments)
-                setIsLoading(false)
-            })
-    }, [])
+
 
     return (
         <div>
@@ -64,24 +63,10 @@ export const Article = ({ isLoading, setIsLoading }) => {
                 <h1>Comments</h1>
                 <p>{comment_count}💬</p>
 
-                <div>
-                    {comments.map((comment, index) => {
-                        if (index <= 4) {
-                            return (
-                                <CommentCard comment={comment} key={comment.comment_id} />
-                            )
-                        }
-
-                    })}
-                </div>
-
-                <div>
-                    {(comment_count - 5 > 0) ?
-                        <button onClick={() => { navigate("./comments") }}>read {comment_count - 5} more comments</button> :
-                        null
-                    }
-                </div>
-
+                {comment_count === 0 ?
+                    <h2>Be the first to comment...</h2> :
+                    <ArticleCommentCards article_id={article_id} comment_count={comment_count} display_count={5} />
+                }
             </div>
 
 
