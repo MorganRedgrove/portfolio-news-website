@@ -20,13 +20,13 @@ export const CommentCard = ({ comment }) => {
             <div className="comment-card-user">
                 <img src={avatar} alt={author} />
                 <h3>{author}</h3>
-                <p class="comment-card-buttons">{votes}👍 <button>vote</button></p>
+                <p className="comment-card-buttons">{votes}👍 <button>vote</button></p>
             </div>
 
             <div className="comment-card-text">
                 <p>{body}</p>
                 <br />
-                <p class="comment-card-timestamp">{dateFormatted}</p>
+                <p className="comment-card-timestamp">{dateFormatted}</p>
             </div>
         </div>
     )

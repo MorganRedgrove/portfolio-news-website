@@ -31,3 +31,12 @@ export const getUser = (username) => {
             return response.data.user
         })
 }
+
+export const patchArticle = (article_id, inc_votes) => {
+    const body = { inc_votes }
+
+    return apiCaller.patch(`/articles/${article_id}`, body)
+        .then((response) => {
+            return response.data.article
+        })
+}

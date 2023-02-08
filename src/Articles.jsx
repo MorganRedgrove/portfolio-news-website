@@ -5,7 +5,7 @@ import { Footer } from "./Footer"
 import { ArticleCard } from "./ArticleCard"
 import { Loading } from "./Loading"
 
-import { LoadingContext } from "./contexts/Loading"
+import { LoadingContext } from "./contexts/contexts"
 
 
 export const Articles = ({ articles }) => {

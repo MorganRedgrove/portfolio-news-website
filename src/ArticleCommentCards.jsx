@@ -6,7 +6,7 @@ import { Loading } from "./Loading"
 
 import { getComments } from "./ApiCalls"
 
-import { LoadingContext } from "./contexts/Loading"
+import { LoadingContext } from "./contexts/contexts"
 
 
 export const ArticleCommentCards = ({ article_id, comment_count, display_count = 0 }) => {
