@@ -10,7 +10,7 @@ import { Comments } from "./Comments";
 
 import { getArticles } from "./ApiCalls"
 
-import { LoadingContext } from "./contexts/Loading";
+import { LoadingContext } from "./contexts/contexts";
 
 
 function App() {

@@ -6,14 +6,18 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 
-import { LoadingProvider } from "./contexts/Loading";
+import { LoadingProvider, UserProvider, VotingProvider } from "./contexts/contexts";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <LoadingProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </LoadingProvider>
+<LoadingProvider>
+  <UserProvider>
+    <VotingProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </VotingProvider>
+  </UserProvider>
+</LoadingProvider>
 );

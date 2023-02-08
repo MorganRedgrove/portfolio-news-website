@@ -8,7 +8,7 @@ import { ArticleCommentCards } from "./ArticleCommentCards"
 
 import { getArticle } from "./ApiCalls"
 
-import { LoadingContext } from "./contexts/Loading"
+import { LoadingContext } from "./contexts/contexts"
 
 
 export const Comments = () => {
@@ -43,7 +43,7 @@ export const Comments = () => {
 
                 <h1>{title}</h1>
 
-                <div class="article-details">
+                <div className="article-details">
                     <p>by {author}</p>
                     <p>{dateFormatted}</p>
                     <p>{topic}</p>
