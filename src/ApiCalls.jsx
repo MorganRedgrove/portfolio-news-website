@@ -17,3 +17,17 @@ export const getArticle = (article_id) => {
             return response.data.article
         })
 }
+
+export const getComments = (article_id) => {
+    return apiCaller.get(`/articles/${article_id}/comments`)
+        .then((response) => {
+            return response.data.comments
+        })
+}
+
+export const getUser = (username) => {
+    return apiCaller.get(`/users/${username}`)
+        .then((response) => {
+            return response.data.user
+        })
+}
