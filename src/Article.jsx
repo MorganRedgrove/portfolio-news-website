@@ -41,6 +41,7 @@ export const Article = () => {
             alert(`Sorry ${username}, you have already voted on this article`)
         } else {
             setVoteCounter(voteCounter + 1)
+            alert("Thank you for voting!")
             patchArticle(article_id, 1)
                 .then(() => {
                     voteHistory[username][article_id] = true
