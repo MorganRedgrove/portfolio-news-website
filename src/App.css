@@ -165,3 +165,10 @@ a {
     margin-right: 0px;
   }
 }
+
+.articles-dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 5px;
+}
