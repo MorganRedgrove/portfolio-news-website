@@ -5,17 +5,19 @@ import { Banner } from "./Banner"
 import { Footer } from "./Footer"
 import { Loading } from "./Loading"
 import { ArticleCommentCards } from "./ArticleCommentCards"
+import { CommentForm } from "./CommentForm"
 
 import { getArticle, patchArticle } from "./ApiCalls"
 
 import { LoadingContext, UserContext, VotingContext } from "./contexts/contexts"
+
 
 export const Article = () => {
     const params = useParams()
     const { article_id } = params
 
     const { isLoading, setIsLoading } = useContext(LoadingContext)
-    const { user } = useContext(UserContext)
+    const { user: { username } } = useContext(UserContext)
     const { voteHistory, setVoteHistory } = useContext(VotingContext)
 
     const [article, setArticle] = useState({})
@@ -36,7 +38,8 @@ export const Article = () => {
     }, [])
 
     const clickHandler = () => {
-        const { username } = user
+        console.log(username)
+        console.log(voteHistory)
         if (voteHistory?.[username]?.[article_id]) {
             alert(`Sorry ${username}, you have already voted on this article`)
         } else {
@@ -44,7 +47,7 @@ export const Article = () => {
             alert("Thank you for voting!")
             patchArticle(article_id, 1)
                 .then(() => {
-                    voteHistory[username][article_id] = true
+                    voteHistory[username] = { [article_id]: true }
                     setVoteHistory(voteHistory)
                 })
                 .catch((err) => {
@@ -86,7 +89,10 @@ export const Article = () => {
                     <h2>Be the first to comment...</h2> :
                     <ArticleCommentCards article_id={article_id} comment_count={comment_count} display_count={5} />
                 }
+
+                <CommentForm article_id={article_id} />
             </div>
+
 
             <Footer />
         </div>
