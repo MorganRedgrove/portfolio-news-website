@@ -136,6 +136,13 @@ a {
   margin-top: auto;
 }
 
+/* topic card */
+.topic-card {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 25px
+}
+
 
 /* media breakpoints */
 @media (max-width: 960px) {

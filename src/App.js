@@ -7,6 +7,7 @@ import { Home } from "./Home";
 import { Articles } from "./Articles";
 import { Article } from "./Article";
 import { Comments } from "./Comments";
+import { Topics } from "./Topics";
 
 import { getArticles } from "./ApiCalls"
 
@@ -14,26 +15,16 @@ import { LoadingContext } from "./contexts/contexts";
 
 
 function App() {
-  const { isLoading, setIsLoading } = useContext(LoadingContext)
-
-  const [articles, setArticles] = useState([])
-
-  useEffect(() => {
-    setIsLoading(true)
-    getArticles()
-        .then((articles) => {
-            setArticles(articles)
-            setIsLoading(false)
-        })
-}, [])
 
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Home/>}></Route>
-        <Route path="/articles" element={<Articles articles={articles}/>}></Route>
+        <Route path="/articles" element={<Articles/>}></Route>
         <Route path="/articles/:article_id" element={<Article/>}></Route>
         <Route path="/articles/:article_id/comments" element={<Comments/>}></Route>
+        <Route path="/topics" element={<Topics/>}></Route>
+        <Route path="/topics/:topic" element={<Articles/>}></Route>
       </Routes>
     </div>
   )
