@@ -85,12 +85,12 @@ export const Article = () => {
                 <h1>Comments</h1>
                 <p>{comment_count}💬</p>
 
+                <CommentForm article_id={article_id} />
+
                 {comment_count === 0 ?
                     <h2>Be the first to comment...</h2> :
                     <ArticleCommentCards article_id={article_id} comment_count={comment_count} display_count={5} />
                 }
-
-                <CommentForm article_id={article_id} />
             </div>
 
 

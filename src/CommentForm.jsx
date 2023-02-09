@@ -36,6 +36,7 @@ export const CommentForm = ({ article_id }) => {
             })
             .catch((err) => {
                 console.log(err)
+                alert("Sorry we couldn't post your comment")
             })
     }
 
