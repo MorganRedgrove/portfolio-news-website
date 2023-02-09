@@ -40,3 +40,14 @@ export const patchArticle = (article_id, inc_votes) => {
             return response.data.article
         })
 }
+
+export const postComment = (article_id, body) => {
+    return apiCaller.post(`/articles/${article_id}/comments`, body)
+}
+
+export const getUsers = () => {
+    return apiCaller.get("/users")
+        .then((response) => {
+            return response.data.users
+        })
+}
