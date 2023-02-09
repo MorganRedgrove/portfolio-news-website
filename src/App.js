@@ -9,10 +9,6 @@ import { Article } from "./Article";
 import { Comments } from "./Comments";
 import { Topics } from "./Topics";
 
-import { getArticles } from "./ApiCalls"
-
-import { LoadingContext } from "./contexts/contexts";
-
 
 function App() {
 
