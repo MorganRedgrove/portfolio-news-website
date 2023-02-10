@@ -26,7 +26,7 @@ export const ArticleCard = ({ article }) => {
             alert("Thank you for voting!")
             patchArticle(article_id, 1)
                 .then(() => {
-                    voteHistory[username][article_id] = true
+                    voteHistory[username] = { [article_id]: true }
                     setVoteHistory(voteHistory)
                 })
                 .catch((err) => {

@@ -52,7 +52,7 @@ export const UsersProvider = ({ children }) => {
     .then((users) => {
         setUsers(users)
       })
-  })
+  }, [])
 
   return (
     <UsersContext.Provider value={{ users, setUsers }}>
@@ -75,7 +75,6 @@ export const PermissionsProvider = ({ children }) => {
         permissions[username] = true
         setpermissions(permissions)
       });
-      console.log(permissions)
     })
     .catch((err) => {
       console.log(err)

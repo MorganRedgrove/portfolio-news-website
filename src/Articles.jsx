@@ -16,11 +16,20 @@ export const Articles = () => {
     const { topic } = params
 
     const { isLoading, setIsLoading } = useContext(LoadingContext)
+
     const [articles, setArticles] = useState([])
+    const [sort_by, setSortBy] = useState("")
+    const [order, setOrder] = useState("")
+
+    const articleKeys = ["title", "topic", "author", "created_at"]
+
+    const changeHandler = (event, setFunc) => {
+        setFunc(event.target.value)
+    }
 
     useEffect(() => {
         setIsLoading(true)
-        getArticles(topic)
+        getArticles({ topic, sort_by, order })
             .then((articles) => {
                 setArticles(articles)
                 setIsLoading(false)
@@ -28,11 +37,11 @@ export const Articles = () => {
     }, [])
 
     useEffect(() => {
-        getArticles(topic)
+        getArticles({ topic, sort_by, order })
             .then((articles) => {
                 setArticles(articles)
             })
-    }, [topic])
+    }, [topic, sort_by, order])
 
     return (
         <div>
@@ -40,6 +49,25 @@ export const Articles = () => {
 
             <div id="content">
                 <h1>Articles</h1>
+
+                <div className="articles-dropdown">
+                    <label htmlFor="articles-sort">Sort by:</label>
+                    <select id="articles-sort" onChange={(event) => { changeHandler(event, setSortBy) }}>
+                        <option value="">Select</option>
+                        {articleKeys.map((key) => {
+                            return (
+                                <option key={key} value={key}>{key}</option>
+                            )
+                        })}
+                    </select>
+
+                    <label htmlFor="articles-order">Order:</label>
+                    <select id="articles-order" onChange={(event) => { changeHandler(event, setOrder) }}>
+                        <option value="DESC">Descending</option>
+                        <option value="ASC">Ascending</option>
+
+                    </select>
+                </div>
 
                 {isLoading ? <Loading /> : null}
 

@@ -173,6 +173,18 @@ a {
   }
 }
 
+
+.articles-dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 5px;
+}
+
+.articles-dropdown label {
+  margin-left: 5px;
+}
+
 nav {
   padding: 15px
 }
@@ -181,6 +193,7 @@ nav a {
   padding: 15px;
   font-size: larger;
   font-weight: 800;
+}
 
 
 .comment-form img {

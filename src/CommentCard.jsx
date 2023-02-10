@@ -13,7 +13,7 @@ export const CommentCard = ({ comment }) => {
             .then(({ avatar_url }) => {
                 setAvatar(avatar_url)
             })
-    })
+    }, [])
 
     return (
         <div className="comment-card">
