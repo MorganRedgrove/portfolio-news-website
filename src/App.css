@@ -8,8 +8,9 @@ html {
   text-align: center;
 }
 
-/* wire frame */
-header,
+wire frame */
+
+/* header,
 footer,
 div {
   border: 1px solid red;
@@ -173,13 +174,18 @@ a {
   }
 }
 
-<<<<<<< HEAD
+
 .articles-dropdown {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   padding: 5px;
-=======
+}
+
+.articles-dropdown label {
+  margin-left: 5px;
+}
+
 nav {
   padding: 15px
 }
@@ -188,6 +194,7 @@ nav a {
   padding: 15px;
   font-size: larger;
   font-weight: 800;
+}
 
 
 .comment-form img {
@@ -199,5 +206,4 @@ nav a {
 
 .comment-form textarea {
   overflow-y: scroll;
->>>>>>> 4cd53300f84f34189a2cb96d0c3bef65350d2be0
 }

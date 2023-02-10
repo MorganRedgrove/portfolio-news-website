@@ -17,22 +17,6 @@ export const Articles = () => {
 
     const { isLoading, setIsLoading } = useContext(LoadingContext)
 
-    useEffect(() => {
-        setIsLoading(true)
-        getArticles(topic)
-            .then((articles) => {
-                setArticles(articles)
-                setIsLoading(false)
-            })
-    }, [])
-
-    useEffect(() => {
-        getArticles(topic)
-            .then((articles) => {
-                setArticles(articles)
-            })
-    }, [topic])
-
     const [articles, setArticles] = useState([])
     const [sort_by, setSortBy] = useState("")
     const [order, setOrder] = useState("")
@@ -45,7 +29,7 @@ export const Articles = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        getArticles(sort_by, order)
+        getArticles({ topic, sort_by, order })
             .then((articles) => {
                 setArticles(articles)
                 setIsLoading(false)
@@ -53,11 +37,11 @@ export const Articles = () => {
     }, [])
 
     useEffect(() => {
-        getArticles(sort_by, order)
+        getArticles({ topic, sort_by, order })
             .then((articles) => {
                 setArticles(articles)
             })
-    }, [sort_by, order])
+    }, [topic, sort_by, order])
 
     return (
         <div>

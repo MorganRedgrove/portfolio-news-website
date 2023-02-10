@@ -5,30 +5,28 @@ const apiCaller = axios.create({
 })
 
 
-export const getArticles = (sort_by, order) => {
+export const getArticles = ({ topic, sort_by, order }) => {
     let endpoint = "/articles"
+    const queryArr = []
 
-    if (sort_by || order) {
+    if (topic || sort_by || order) {
         endpoint += "?"
+        if (topic) {
+            queryArr.push(`topic=${topic}`)
+        }
+
+        if (sort_by) {
+            queryArr.push(`sort_by=${sort_by}`)
+        }
+
+        if (order) {
+            queryArr.push(`order=${order}`)
+        }
+
+        endpoint += queryArr.join("&")
     }
 
-    if (sort_by && !order) {
-        endpoint += `sort_by=${sort_by}`
-    } else if (order && !sort_by) {
-        endpoint += `order=${order}`
-    } else if (sort_by && order) {
-        endpoint += `sort_by=${sort_by}&order=${order}`
-    }
-
-    // export const getArticles = (thing) => {
-    //     let endpoint = "/articles"
-
-    //     if (thing) {
-    //         if (/[0-9]+/.test(endpoint)) {
-    //             endpoint += `/${thing}`
-    //         } else {
-    //             endpoint += `?topic=${thing}`
-    //         }
+    console.log(endpoint)
 
     return apiCaller.get(endpoint)
         .then((response) => {
