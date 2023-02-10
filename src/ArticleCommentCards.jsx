@@ -21,7 +21,7 @@ export const ArticleCommentCards = ({ article_id, comment_count, display_count =
                 setComments(comments)
                 setIsLoading(false)
             })
-    }, [])
+    }, [comment_count])
 
     const navigate = useNavigate()
 

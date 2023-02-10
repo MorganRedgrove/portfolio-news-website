@@ -31,7 +31,7 @@ export const VotingProvider = ({ children }) => {
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({username: "Guest"});
+  const [user, setUser] = useState({username: "Guest", avatar_url:"https://static.vecteezy.com/system/resources/previews/000/440/213/original/question-mark-vector-icon.jpg"});
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
