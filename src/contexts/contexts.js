@@ -1,4 +1,5 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
+import { getUsers } from '../ApiCalls';
 
 // loading
 export const LoadingContext = createContext();
@@ -17,7 +18,7 @@ export const LoadingProvider = ({ children }) => {
 export const VotingContext = createContext();
 
 export const VotingProvider = ({ children }) => {
-  const [voteHistory, setVoteHistory] = useState({Guest: {34:false}});
+  const [voteHistory, setVoteHistory] = useState({});
 
   return (
     <VotingContext.Provider value={{ voteHistory, setVoteHistory }}>
@@ -36,5 +37,54 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
+  );
+};
+
+// users
+
+export const UsersContext = createContext();
+
+export const UsersProvider = ({ children }) => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getUsers()
+    .then((users) => {
+        setUsers(users)
+      })
+  })
+
+  return (
+    <UsersContext.Provider value={{ users, setUsers }}>
+      {children}
+    </UsersContext.Provider>
+  );
+};
+
+// persmisions
+
+export const PermissionsContext = createContext();
+
+export const PermissionsProvider = ({ children }) => {
+  const [permissions, setpermissions] = useState({Guest: false});
+
+  useEffect(() => {
+    getUsers()
+    .then((users) => {
+      users.forEach(({username}) => {
+        permissions[username] = true
+        setpermissions(permissions)
+      });
+      console.log(permissions)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
+
+  return (
+    <PermissionsContext.Provider value={{ permissions, setpermissions }}>
+      {children}
+    </PermissionsContext.Provider>
   );
 };

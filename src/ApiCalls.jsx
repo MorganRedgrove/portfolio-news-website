@@ -55,9 +55,21 @@ export const patchArticle = (article_id, inc_votes) => {
         })
 }
 
+
 export const getTopics = () => {
     return apiCaller.get("/topics")
         .then((response) => {
             return response.data.topics
+        })
+}
+
+export const postComment = (article_id, body) => {
+    return apiCaller.post(`/articles/${article_id}/comments`, body)
+}
+
+export const getUsers = () => {
+    return apiCaller.get("/users")
+        .then((response) => {
+            return response.data.users
         })
 }

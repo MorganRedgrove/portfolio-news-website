@@ -114,7 +114,7 @@ a {
   height: 60px;
   width: 60px;
   object-fit: cover;
-  border-radius: 25px;
+  border-radius: 30px;
   margin: 5px
 }
 
@@ -181,4 +181,15 @@ nav a {
   padding: 15px;
   font-size: larger;
   font-weight: 800;
+
+
+.comment-form img {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  object-fit: cover;
+}
+
+.comment-form textarea {
+  overflow-y: scroll;
 }
