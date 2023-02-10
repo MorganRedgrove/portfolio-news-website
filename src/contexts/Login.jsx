@@ -19,11 +19,9 @@ export const Login = () => {
             return user.username === input
         })[0]
 
-        console.log(user)
-
         if (user) {
             setUser(user)
-            setTimeout(navigate("/articles")
+            setTimeout(navigate(-1)
                 , 2000)
         } else {
             alert("This user does not exist")

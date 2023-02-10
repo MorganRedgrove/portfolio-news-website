@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import { Banner } from "./Banner"
 import { Footer } from "./Footer"
@@ -35,7 +35,15 @@ export const Article = () => {
                 setVoteCounter(article.votes)
                 setIsLoading(false)
             })
+            .catch((err) => {
+                const status = err.response.status
+                if (status === 404) {
+                    navigate("/not-found")
+                }
+            })
     }, [])
+
+    const navigate = useNavigate()
 
     const clickHandler = () => {
         console.log(username)

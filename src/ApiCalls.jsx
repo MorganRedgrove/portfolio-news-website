@@ -26,8 +26,6 @@ export const getArticles = ({ topic, sort_by, order }) => {
         endpoint += queryArr.join("&")
     }
 
-    console.log(endpoint)
-
     return apiCaller.get(endpoint)
         .then((response) => {
             return response.data.articles
