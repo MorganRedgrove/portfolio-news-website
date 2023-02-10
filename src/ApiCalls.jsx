@@ -73,3 +73,7 @@ export const getUsers = () => {
             return response.data.users
         })
 }
+
+export const deleteComment = (comment_id) => {
+    return apiCaller.delete(`/comments/${comment_id}`)
+}

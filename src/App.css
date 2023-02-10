@@ -16,10 +16,17 @@ div {
 }
 
 header {
-  height: 120px;
+  height: 180px;
 }
 
-header h1 {}
+header img {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  object-fit: cover;
+
+  ;
+}
 
 footer {
   height: 60px
@@ -136,6 +143,10 @@ a {
   margin-top: auto;
 }
 
+.comment-card button {
+  width: 45px
+}
+
 /* topic card */
 .topic-card {
   margin-top: 25px;
@@ -181,6 +192,7 @@ nav a {
   padding: 15px;
   font-size: larger;
   font-weight: 800;
+}
 
 
 .comment-form img {

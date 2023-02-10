@@ -8,6 +8,7 @@ import { Articles } from "./Articles";
 import { Article } from "./Article";
 import { Comments } from "./Comments";
 import { Topics } from "./Topics";
+import { Login } from "./contexts/Login";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/articles/id/:article_id" element={<Article/>}></Route>
         <Route path="/articles/id/:article_id/comments" element={<Comments/>}></Route>
         <Route path="/topics" element={<Topics/>}></Route>
+        <Route path="/login" element={<Login/>}></Route>
       </Routes>
     </div>
   )

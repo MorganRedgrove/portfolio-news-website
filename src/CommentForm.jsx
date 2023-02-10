@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { PermissionsContext, UserContext, UsersContext } from "./contexts/contexts"
 import { getUser, postComment } from "./ApiCalls"
+import { Link } from "react-router-dom"
 
 export const CommentForm = ({ article_id }) => {
     const { user: { username, avatar_url }, setUser } = useContext(UserContext)
@@ -16,16 +17,6 @@ export const CommentForm = ({ article_id }) => {
     const changeHandler = (event) => {
         setBody(event.target.value)
     }
-
-    const selectHandler = (event) => {
-        event.target.value !== "Guest" ?
-            getUser(event.target.value)
-                .then((user) => {
-                    setUser(user)
-                }) :
-            setUser({ username: "Guest" })
-    }
-
 
     onsubmit = (event) => {
         event.preventDefault()
@@ -44,21 +35,14 @@ export const CommentForm = ({ article_id }) => {
         <div className="comment-form">
             <div className="comment-form-login">
                 {username === "Guest" ?
-                    <h3>You must be logged in to comment on this article</h3> :
                     <div>
-                        <img src={avatar_url} alt={username} />
-                        <h3>{username}</h3>
+                        <h3>You must be logged in to comment on this article</h3>
+                        <Link to="/login">Login</Link>
                     </div>
+                    :
+                    null
                 }
-                <select onChange={selectHandler}>
-                    <option value="Guest">Guest</option>
-                    {users.map(({ username }) => {
-                        return (
-                            <option key={username} value={username}>{username}</option>
-                        )
-                    })
-                    }
-                </select>
+
             </div>
 
             <div>

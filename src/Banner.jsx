@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import { getTopics } from "./ApiCalls"
+import { UserContext } from "./contexts/contexts"
 
 
 export const Banner = () => {
+    const { user: { username, avatar_url } } = useContext(UserContext)
+
     const [topics, setTopics] = useState([])
 
     useEffect(() => {
@@ -18,16 +21,21 @@ export const Banner = () => {
         <div>
             <header>
                 <h1>NC News</h1>
-            </header>
 
-            <nav>
-                <Link to="/articles">Articles</Link>
-                {topics.map(({ slug }) => {
-                    return (
-                        <Link to={`/articles/${slug}`}>{slug}</Link>
-                    )
-                })}
-            </nav>
+
+                <nav>
+                    <Link to="/articles">Articles</Link>
+                    {topics.map(({ slug }) => {
+                        return (
+                            <Link to={`/articles/${slug}`}>{slug}</Link>
+                        )
+                    })}
+                </nav>
+
+                <img src={avatar_url} alt={username} />
+
+                <h4>{username}</h4>
+            </header>
         </div>
     )
 }
