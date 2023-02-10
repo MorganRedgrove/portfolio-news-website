@@ -13,6 +13,10 @@ export const Home = () => {
                 <h1>This is the Home page</h1>
 
                 <Link to="/articles">go to articles</Link>
+
+                <br />
+
+                <Link to="/topics">go to topics</Link>
             </div>
 
             <Footer></Footer>

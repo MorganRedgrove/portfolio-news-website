@@ -4,8 +4,22 @@ const apiCaller = axios.create({
     baseURL: "https://nc-news-xe9m.onrender.com/api",
 })
 
-export const getArticles = () => {
-    return apiCaller.get("/articles")
+export const getArticles = (thing) => {
+    let endpoint = "/articles"
+
+    if (thing) {
+        if (/[0-9]+/.test(endpoint)) {
+            endpoint += `/${thing}`
+        } else {
+            endpoint += `?topic=${thing}`
+        }
+    }
+
+
+
+
+
+    return apiCaller.get(endpoint)
         .then((response) => {
             return response.data.articles
         })
@@ -38,6 +52,14 @@ export const patchArticle = (article_id, inc_votes) => {
     return apiCaller.patch(`/articles/${article_id}`, body)
         .then((response) => {
             return response.data.article
+        })
+}
+
+
+export const getTopics = () => {
+    return apiCaller.get("/topics")
+        .then((response) => {
+            return response.data.topics
         })
 }
 

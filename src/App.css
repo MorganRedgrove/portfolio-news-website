@@ -136,6 +136,13 @@ a {
   margin-top: auto;
 }
 
+/* topic card */
+.topic-card {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 25px
+}
+
 
 /* media breakpoints */
 @media (max-width: 960px) {
@@ -165,6 +172,15 @@ a {
     margin-right: 0px;
   }
 }
+
+nav {
+  padding: 15px
+}
+
+nav a {
+  padding: 15px;
+  font-size: larger;
+  font-weight: 800;
 
 
 .comment-form img {

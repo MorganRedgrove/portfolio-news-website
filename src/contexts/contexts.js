@@ -28,7 +28,6 @@ export const VotingProvider = ({ children }) => {
 };
 
 // user
-
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
