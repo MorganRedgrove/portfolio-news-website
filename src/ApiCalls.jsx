@@ -4,12 +4,20 @@ const apiCaller = axios.create({
     baseURL: "https://nc-news-xe9m.onrender.com/api",
 })
 
-export const getArticles = (topic) => {
+export const getArticles = (thing) => {
     let endpoint = "/articles"
 
-    if (topic) {
-        endpoint += `?topic=${topic}`
+    if (thing) {
+        if (/[0-9]+/.test(endpoint)) {
+            endpoint += `/${thing}`
+        } else {
+            endpoint += `?topic=${thing}`
+        }
     }
+
+
+
+
 
     return apiCaller.get(endpoint)
         .then((response) => {

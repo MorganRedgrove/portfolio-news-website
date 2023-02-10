@@ -27,6 +27,13 @@ export const Articles = () => {
             })
     }, [])
 
+    useEffect(() => {
+        getArticles(topic)
+            .then((articles) => {
+                setArticles(articles)
+            })
+    }, [topic])
+
     return (
         <div>
             <Banner></Banner>

@@ -172,3 +172,13 @@ a {
     margin-right: 0px;
   }
 }
+
+nav {
+  padding: 15px
+}
+
+nav a {
+  padding: 15px;
+  font-size: larger;
+  font-weight: 800;
+}
