@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react"
+import { useParams } from "react-router-dom"
 
 import { Banner } from "./Banner"
 import { Footer } from "./Footer"
@@ -11,7 +12,26 @@ import { LoadingContext } from "./contexts/contexts"
 
 
 export const Articles = () => {
+    const params = useParams()
+    const { topic } = params
+
     const { isLoading, setIsLoading } = useContext(LoadingContext)
+
+    useEffect(() => {
+        setIsLoading(true)
+        getArticles(topic)
+            .then((articles) => {
+                setArticles(articles)
+                setIsLoading(false)
+            })
+    }, [])
+
+    useEffect(() => {
+        getArticles(topic)
+            .then((articles) => {
+                setArticles(articles)
+            })
+    }, [topic])
 
     const [articles, setArticles] = useState([])
     const [sort_by, setSortBy] = useState("")

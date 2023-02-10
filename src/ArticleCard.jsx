@@ -41,14 +41,14 @@ export const ArticleCard = ({ article }) => {
 
         <div className="article-card">
             <div className="article-card-img">
-                <Link to={`./${article_id}`}>
+                <Link to={`/articles/id/${article_id}`}>
                     <img src={article_img_url} alt={title} />
                 </Link>
             </div>
 
             <div className="article-card-text">
 
-                <Link to={`./${article_id}`}>
+                <Link to={`/articles/id/${article_id}`}>
                     <h1>{title}</h1>
                 </Link>
 

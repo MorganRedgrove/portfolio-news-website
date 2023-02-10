@@ -4,6 +4,7 @@ const apiCaller = axios.create({
     baseURL: "https://nc-news-xe9m.onrender.com/api",
 })
 
+
 export const getArticles = (sort_by, order) => {
     let endpoint = "/articles"
 
@@ -18,6 +19,16 @@ export const getArticles = (sort_by, order) => {
     } else if (sort_by && order) {
         endpoint += `sort_by=${sort_by}&order=${order}`
     }
+
+    // export const getArticles = (thing) => {
+    //     let endpoint = "/articles"
+
+    //     if (thing) {
+    //         if (/[0-9]+/.test(endpoint)) {
+    //             endpoint += `/${thing}`
+    //         } else {
+    //             endpoint += `?topic=${thing}`
+    //         }
 
     return apiCaller.get(endpoint)
         .then((response) => {
@@ -55,5 +66,24 @@ export const patchArticle = (article_id, inc_votes) => {
     return apiCaller.patch(`/articles/${article_id}`, body)
         .then((response) => {
             return response.data.article
+        })
+}
+
+
+export const getTopics = () => {
+    return apiCaller.get("/topics")
+        .then((response) => {
+            return response.data.topics
+        })
+}
+
+export const postComment = (article_id, body) => {
+    return apiCaller.post(`/articles/${article_id}/comments`, body)
+}
+
+export const getUsers = () => {
+    return apiCaller.get("/users")
+        .then((response) => {
+            return response.data.users
         })
 }
