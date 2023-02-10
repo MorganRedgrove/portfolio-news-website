@@ -4,24 +4,36 @@ const apiCaller = axios.create({
     baseURL: "https://nc-news-xe9m.onrender.com/api",
 })
 
-export const getArticles = (thing) => {
-    let endpoint = "/articles"
 
-    if (thing) {
-        if (/[0-9]+/.test(endpoint)) {
-            endpoint += `/${thing}`
-        } else {
-            endpoint += `?topic=${thing}`
+export const getArticles = ({ topic, sort_by, order }) => {
+    let endpoint = "/articles"
+    const queryArr = []
+
+    if (topic || sort_by || order) {
+        endpoint += "?"
+        if (topic) {
+            queryArr.push(`topic=${topic}`)
         }
+
+        if (sort_by) {
+            queryArr.push(`sort_by=${sort_by}`)
+        }
+
+        if (order) {
+            queryArr.push(`order=${order}`)
+        }
+
+        endpoint += queryArr.join("&")
     }
 
-
-
-
+    console.log(endpoint)
 
     return apiCaller.get(endpoint)
         .then((response) => {
             return response.data.articles
+        })
+        .catch((err) => {
+            console.log(err)
         })
 }
 

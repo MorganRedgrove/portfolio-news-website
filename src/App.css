@@ -184,6 +184,18 @@ a {
   }
 }
 
+
+.articles-dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 5px;
+}
+
+.articles-dropdown label {
+  margin-left: 5px;
+}
+
 nav {
   padding: 15px
 }

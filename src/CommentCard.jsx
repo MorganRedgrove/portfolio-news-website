@@ -29,6 +29,7 @@ export const CommentCard = ({ comment }) => {
             })
     }
 
+
     return (
         <div className="comment-card">
             <div className="comment-card-user">

@@ -52,7 +52,7 @@ export const UsersProvider = ({ children }) => {
     .then((users) => {
         setUsers(users)
       })
-  })
+  }, [])
 
   return (
     <UsersContext.Provider value={{ users, setUsers }}>
