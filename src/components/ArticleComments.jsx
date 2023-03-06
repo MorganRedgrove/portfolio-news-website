@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom"
 import { CommentCard } from "./CommentCard"
 import { Loading } from "./Loading"
 
-import { getComments } from "./ApiCalls"
-
-import { LoadingContext } from "./contexts/contexts"
+import { getComments } from "../utils/ApiCalls"
 
 
-export const ArticleCommentCards = ({ article_id, comment_count, display_count = 0 }) => {
-    const { isLoading, setIsLoading } = useContext(LoadingContext)
+export const ArticleComments = ({ article_id, comment_count, display_count = 0 }) => {
 
     const [comments, setComments] = useState([])
+    const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+
 
     useEffect(() => {
         setIsLoading(true)

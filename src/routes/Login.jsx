@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Banner } from "../Banner"
-import { Footer } from "../Footer"
-import { UserContext, UsersContext } from "./contexts"
+import { Banner } from "../components/Banner"
+import { Footer } from "../components/Footer"
+import { UserContext, UsersContext } from "../contexts/contexts"
 
 
 

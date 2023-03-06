@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { Banner } from "./Banner"
-import { Footer } from "./Footer"
+import { Banner } from "../components/Banner"
+import { Footer } from "../components/Footer"
 
 
 

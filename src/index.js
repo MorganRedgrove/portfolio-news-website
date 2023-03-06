@@ -6,12 +6,16 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 
-import { LoadingProvider, PermissionsProvider, UserProvider, UsersProvider, VotingProvider } from "./contexts/contexts";
-
+import {
+  LoadingProvider,
+  PermissionsProvider,
+  UserProvider,
+  UsersProvider,
+  VotingProvider,
+} from "./contexts/contexts";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-<LoadingProvider>
   <UsersProvider>
     <UserProvider>
       <PermissionsProvider>
@@ -23,5 +27,4 @@ root.render(
       </PermissionsProvider>
     </UserProvider>
   </UsersProvider>
-</LoadingProvider>
 );

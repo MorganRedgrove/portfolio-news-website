@@ -1,24 +1,23 @@
 import { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 
-import { Banner } from "./Banner"
-import { Footer } from "./Footer"
-import { Loading } from "./Loading"
-import { ArticleCommentCards } from "./ArticleCommentCards"
+import { Banner } from "../components/Banner"
+import { Footer } from "../components/Footer"
+import { Loading } from "../components/Loading"
+import { Error } from "../components/Error"
+import { ArticleComments } from "../components/ArticleComments"
 
-import { getArticle } from "./ApiCalls"
-
-import { LoadingContext } from "./contexts/contexts"
+import { getArticle } from "../utils/ApiCalls"
 
 
 export const Comments = () => {
     const params = useParams()
     const { article_id } = params
 
-    const { isLoading, setIsLoading } = useContext(LoadingContext)
-
     const [article, setArticle] = useState({})
     const [comments, setComments] = useState([])
+    const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     const { title, topic, body, author, created_at, votes, article_img_url, comment_count } = article
     const date = new Date(created_at)
@@ -32,7 +31,17 @@ export const Comments = () => {
                 setArticle(article)
                 setIsLoading(false)
             })
+            .catch((err) => {
+                setError(err.response.statusText)
+
+            })
     }, [])
+
+    if (error) {
+        return (
+            <Error msg={error}/>
+        )
+    }
 
     return (
         <div>
@@ -54,7 +63,7 @@ export const Comments = () => {
 
                 {comment_count === 0 ?
                     <h2>Be the first to comment...</h2> :
-                    <ArticleCommentCards article_id={article_id} comment_count={comment_count} display_count={comment_count} />
+                    <ArticleComments article_id={article_id} comment_count={comment_count} display_count={comment_count} />
                 }
             </div>
 

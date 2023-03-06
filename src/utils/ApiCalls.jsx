@@ -87,3 +87,12 @@ export const getUsers = () => {
 export const deleteComment = (comment_id) => {
     return apiCaller.delete(`/comments/${comment_id}`)
 }
+
+export const patchComment = (comment_id, inc_votes) => {
+    const body = { inc_votes }
+
+    return apiCaller.patch(`/comments/${comment_id}`, body)
+        .then((response) => {
+            return response.data.comment
+        })
+}
