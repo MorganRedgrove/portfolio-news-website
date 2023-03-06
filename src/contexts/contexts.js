@@ -69,7 +69,7 @@ export const PermissionsProvider = ({ children }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [permissions]);
 
   return (
     <PermissionsContext.Provider value={{ permissions, setpermissions }}>

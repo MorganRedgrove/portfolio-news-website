@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { CommentCard } from "./CommentCard"
@@ -10,7 +10,6 @@ import { getComments } from "../utils/ApiCalls"
 export const ArticleComments = ({ article_id, comment_count, display_count = 0 }) => {
 
     const [comments, setComments] = useState([])
-    const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
 
@@ -21,7 +20,7 @@ export const ArticleComments = ({ article_id, comment_count, display_count = 0 }
                 setComments(comments)
                 setIsLoading(false)
             })
-    }, [comment_count])
+    }, [article_id])
 
     const navigate = useNavigate()
 
@@ -34,6 +33,8 @@ export const ArticleComments = ({ article_id, comment_count, display_count = 0 }
                         return (
                             <CommentCard comment={comment} key={comment.comment_id} />
                         )
+                    } else {
+                        return null
                     }
                 })}
             </div>

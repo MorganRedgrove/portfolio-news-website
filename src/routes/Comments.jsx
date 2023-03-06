@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 import { Banner } from "../components/Banner"
@@ -15,11 +15,10 @@ export const Comments = () => {
     const { article_id } = params
 
     const [article, setArticle] = useState({})
-    const [comments, setComments] = useState([])
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
-    const { title, topic, body, author, created_at, votes, article_img_url, comment_count } = article
+    const { title, topic, author, created_at, comment_count } = article
     const date = new Date(created_at)
     const dateFormatted = date.toLocaleDateString("en-GB", { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -35,7 +34,7 @@ export const Comments = () => {
                 setError(err.response.statusText)
 
             })
-    }, [])
+    }, [article_id])
 
     if (error) {
         return (
