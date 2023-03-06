@@ -1,18 +1,5 @@
-import { useState, createContext, useEffect } from 'react';
-import { getUsers } from '../ApiCalls';
-
-// loading
-export const LoadingContext = createContext();
-
-export const LoadingProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  return (
-    <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-      {children}
-    </LoadingContext.Provider>
-  );
-};
+import { useState, createContext, useEffect } from "react";
+import { getUsers } from "../utils/ApiCalls";
 
 // voting
 export const VotingContext = createContext();
@@ -31,7 +18,11 @@ export const VotingProvider = ({ children }) => {
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({username: "Guest", avatar_url:"https://static.vecteezy.com/system/resources/previews/000/440/213/original/question-mark-vector-icon.jpg"});
+  const [user, setUser] = useState({
+    username: "Guest",
+    avatar_url:
+      "https://static.vecteezy.com/system/resources/previews/000/440/213/original/question-mark-vector-icon.jpg",
+  });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -48,11 +39,10 @@ export const UsersProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getUsers()
-    .then((users) => {
-        setUsers(users)
-      })
-  }, [])
+    getUsers().then((users) => {
+      setUsers(users);
+    });
+  }, []);
 
   return (
     <UsersContext.Provider value={{ users, setUsers }}>
@@ -66,20 +56,20 @@ export const UsersProvider = ({ children }) => {
 export const PermissionsContext = createContext();
 
 export const PermissionsProvider = ({ children }) => {
-  const [permissions, setpermissions] = useState({Guest: false});
+  const [permissions, setpermissions] = useState({ Guest: false });
 
   useEffect(() => {
     getUsers()
-    .then((users) => {
-      users.forEach(({username}) => {
-        permissions[username] = true
-        setpermissions(permissions)
+      .then((users) => {
+        users.forEach(({ username }) => {
+          permissions[username] = true;
+          setpermissions(permissions);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [])
+  }, []);
 
   return (
     <PermissionsContext.Provider value={{ permissions, setpermissions }}>

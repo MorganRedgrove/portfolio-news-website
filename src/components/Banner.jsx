@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
-import { getTopics } from "./ApiCalls"
-import { UserContext } from "./contexts/contexts"
+import { getTopics } from "../utils/ApiCalls"
+import { UserContext } from "../contexts/contexts"
 
 
 export const Banner = () => {
@@ -27,7 +27,7 @@ export const Banner = () => {
                     <Link to="/articles">Articles</Link>
                     {topics.map(({ slug }) => {
                         return (
-                            <Link to={`/articles/${slug}`}>{slug}</Link>
+                            <Link key={slug} to={`/articles/${slug}`}>{slug}</Link>
                         )
                     })}
                 </nav>

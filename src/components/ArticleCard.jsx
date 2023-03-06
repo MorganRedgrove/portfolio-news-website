@@ -1,9 +1,9 @@
 import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-import { patchArticle } from "./ApiCalls"
+import { patchArticle } from "../utils/ApiCalls"
 
-import { UserContext, VotingContext } from "./contexts/contexts"
+import { UserContext, VotingContext } from "../contexts/contexts"
 
 export const ArticleCard = ({ article }) => {
     const { user } = useContext(UserContext)
@@ -38,7 +38,6 @@ export const ArticleCard = ({ article }) => {
     }
 
     return (
-
         <div className="article-card">
             <div className="article-card-img">
                 <Link to={`/articles/id/${article_id}`}>

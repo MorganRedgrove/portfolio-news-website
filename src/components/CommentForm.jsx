@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react"
-import { PermissionsContext, UserContext, UsersContext } from "./contexts/contexts"
-import { getUser, postComment } from "./ApiCalls"
+import { PermissionsContext, UserContext, UsersContext } from "../contexts/contexts"
+import { getUser, postComment } from "../utils/ApiCalls"
 import { Link } from "react-router-dom"
 
 export const CommentForm = ({ article_id }) => {

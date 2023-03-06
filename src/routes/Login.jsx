@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Banner } from "../Banner"
-import { Footer } from "../Footer"
-import { UserContext, UsersContext } from "./contexts"
+import { Banner } from "../components/Banner"
+import { Footer } from "../components/Footer"
+import { UserContext, UsersContext } from "../contexts/contexts"
 
 
 
@@ -19,11 +19,9 @@ export const Login = () => {
             return user.username === input
         })[0]
 
-        console.log(user)
-
         if (user) {
             setUser(user)
-            setTimeout(navigate("/articles")
+            setTimeout(navigate(-1)
                 , 2000)
         } else {
             alert("This user does not exist")

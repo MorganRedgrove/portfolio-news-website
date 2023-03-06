@@ -26,8 +26,6 @@ export const getArticles = ({ topic, sort_by, order }) => {
         endpoint += queryArr.join("&")
     }
 
-    console.log(endpoint)
-
     return apiCaller.get(endpoint)
         .then((response) => {
             return response.data.articles
@@ -88,4 +86,13 @@ export const getUsers = () => {
 
 export const deleteComment = (comment_id) => {
     return apiCaller.delete(`/comments/${comment_id}`)
+}
+
+export const patchComment = (comment_id, inc_votes) => {
+    const body = { inc_votes }
+
+    return apiCaller.patch(`/comments/${comment_id}`, body)
+        .then((response) => {
+            return response.data.comment
+        })
 }
