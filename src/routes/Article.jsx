@@ -80,36 +80,42 @@ export const Article = () => {
 
             <div id="content">
                 {isLoading ? 
-                    <Loading /> : 
-                    <div>
-                        <h1>{title}</h1>
+                    <Loading /> :
+                    null
+                }
 
-                        <div className="article-details">
-                            <p>by {author}</p>
-                            <p>{dateFormatted}</p>
-                            <p>{topic}</p>
-                        </div>
+                <div class="article">
+                    <h1 style={{fontSize: 52}}>{title}</h1>
 
-                        <div className="article-body">
-                            <img src={article_img_url} alt="title" />
-                            <p>{body}</p>
-                        </div>
+                    <div className="article-details">
+                        <p>by {author}</p>
+                        <p>{dateFormatted}</p>
+                        <p>{topic}</p>
+                    </div>
 
-                        <div className="article-buttons">
-                            <p>{voteCounter}👍 <button onClick={clickHandler}>vote</button></p>
-                        </div>
+                    <div className="article-body">
+                        <img src={article_img_url} alt="title" />
+                        <p>{body}</p>
+                    </div>
 
-                        <h1>Comments</h1>
-                        <p>{comment_count}💬</p>
+                    <div className="article-buttons">
+                        <p>{voteCounter}👍 <button onClick={clickHandler}>vote</button></p>
+                    </div>
+                </div>   
 
-                        <CommentForm article_id={article_id} />
+                <div class="article">
+                    <h1>Comments</h1>
+                    <p>{comment_count}💬</p>
 
-                        {comment_count === 0 ?
-                            <h2>Be the first to comment...</h2> :
-                            <ArticleComments article_id={article_id} comment_count={comment_count} display_count={5} />
-                        }
-                    </div>                    
+                    <CommentForm article_id={article_id} />                    
+                </div>
+
+                    {comment_count === 0 ?
+                        <h2>Be the first to comment...</h2> :
+                        <ArticleComments article_id={article_id} comment_count={comment_count} display_count={5} />
                     }
+                 
+                    
             </div>
 
             <Footer />

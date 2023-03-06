@@ -75,7 +75,7 @@ export const Articles = () => {
             <Banner></Banner>
 
             <div id="content">
-                <h1>Articles</h1>
+                <h1 style={{fontSize: 52}}>Articles</h1>
 
                 <div className="articles-dropdown">
                     <label htmlFor="articles-sort">Sort by:</label>

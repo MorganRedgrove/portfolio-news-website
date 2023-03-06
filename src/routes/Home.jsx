@@ -10,13 +10,13 @@ export const Home = () => {
             <Banner></Banner>
 
             <div id="content">
-                <h1>This is the Home page</h1>
+                <h1>Welcome to NC News</h1>
 
-                <Link to="/articles">go to articles</Link>
+                <Link to="/articles"><h2>Articles</h2></Link>
 
                 <br />
 
-                <Link to="/topics">go to topics</Link>
+                <Link to="/topics"><h2>Topics</h2></Link>
             </div>
 
             <Footer></Footer>
