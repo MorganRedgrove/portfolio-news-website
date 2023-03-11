@@ -1,55 +1,47 @@
-import { useState, useEffect } from "react"
-import { getTopics } from "../utils/ApiCalls"
-import { Banner } from "../components/Banner"
-import { Footer } from "../components/Footer"
-import { Loading } from "../components/Loading"
-import { Error } from "../components/Error"
-import { TopicCard } from "../components/TopicCard"
-
+import { useState, useEffect } from "react";
+import { getTopics } from "../utils/ApiCalls";
+import { Banner } from "../components/Banner";
+import { Footer } from "../components/Footer";
+import { Loading } from "../components/Loading";
+import { Error } from "../components/Error";
+import { TopicCard } from "../components/TopicCard";
 
 export const Topics = () => {
-    const [topics, setTopics] = useState([])
-    const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
+  const [topics, setTopics] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        setIsLoading(true)
-        getTopics()
-            .then((topics) => {
-                setTopics(topics)
-                setIsLoading(false)
-            })
-            .catch((err) => {
-                setError(err.response.statusText)
+  useEffect(() => {
+    setIsLoading(true);
+    getTopics()
+      .then((topics) => {
+        setTopics(topics);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setError(err.response.statusText);
+      });
+  }, []);
 
-            })
-    }, [setIsLoading])
+  if (error) {
+    return <Error msg={error} />;
+  }
 
-    if (error) {
-        return (
-            <Error msg={error}/>
-        )
-    }
+  return (
+    <div>
+      <Banner />
 
-    return (
-        <div>
-            <Banner />
+      <div className="content">
+        <h1>Topics</h1>
 
-            <div class="content">
-                <h1>Topics</h1>
+        {isLoading ? <Loading /> : null}
 
-                {isLoading ? <Loading /> : null}
+        {topics.map((topic) => {
+          return <TopicCard topic={topic}></TopicCard>;
+        })}
+      </div>
 
-                {topics.map((topic) => {
-                    return (
-                        <TopicCard topic={topic}></TopicCard>
-                    )
-                })}
-            </div>
-
-            <Footer />
-        </div>
-
-
-    )
-}
+      <Footer />
+    </div>
+  );
+};

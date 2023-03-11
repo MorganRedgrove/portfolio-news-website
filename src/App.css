@@ -94,6 +94,10 @@ button:disabled {
   margin-right: 20%;
 }
 
+.page-header {
+  font-size: 54px;
+}
+
 /* article cards */
 .article-card {
   width: auto;
@@ -232,12 +236,22 @@ button:disabled {
     margin-left: 10%;
     margin-right: 10%;
   }
+
+  html {
+    background-image: url("./assets/ncnews-960.png");
+
+  }
 }
 
 @media (max-width: 650px) {
   #content {
     margin-left: 0%;
     margin-right: 0%;
+  }
+
+  html {
+    background-image: url("./assets/ncnews-650.png");
+
   }
 
   .article-card {
