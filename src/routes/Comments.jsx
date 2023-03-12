@@ -46,27 +46,31 @@ export const Comments = () => {
       <Banner />
 
       <div id="content">
-        {isLoading ? <Loading /> : null}
-
-        <h1>{title}</h1>
-
-        <div className="article-details">
-          <p>by {author}</p>
-          <p>{dateFormatted}</p>
-          <p>{topic}</p>
-        </div>
-
-        <h1>Comments</h1>
-        <p>{comment_count}💬</p>
-
-        {comment_count === 0 ? (
-          <h2>Be the first to comment...</h2>
+        {isLoading ? (
+          <Loading />
         ) : (
-          <ArticleComments
-            article_id={article_id}
-            comment_count={comment_count}
-            display_count={comment_count}
-          />
+          <div>
+            <h1>{title}</h1>
+
+            <div className="article-details">
+              <p>by {author}</p>
+              <p>{dateFormatted}</p>
+              <p>{topic}</p>
+            </div>
+
+            <h1>Comments</h1>
+            <p>{comment_count}💬</p>
+
+            {comment_count === 0 ? (
+              <h2>Be the first to comment...</h2>
+            ) : (
+              <ArticleComments
+                article_id={article_id}
+                comment_count={comment_count}
+                display_count={comment_count}
+              />
+            )}
+          </div>
         )}
       </div>
 

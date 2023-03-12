@@ -34,6 +34,19 @@ export const ArticleCard = ({ article }) => {
 
   const navigate = useNavigate();
 
+  const voteOnClick = (increment) => {
+    VoteArticle(
+      article_id,
+      increment,
+      username,
+      permission,
+      voteCounter,
+      setVoteCounter,
+      voteHistory,
+      setVoteHistory
+    );
+  };
+
   return (
     <div className="article-card">
       <div className="article-card-img">
@@ -51,44 +64,12 @@ export const ArticleCard = ({ article }) => {
         <p>{dateFormatted}</p>
         <p>{topic}</p>
         <p className="article-card-buttons">
-          {voteCounter}👍{" "}
-          <button
-            onClick={() =>
-              VoteArticle(
-                article_id,
-                1,
-                username,
-                permission,
-                voteCounter,
-                setVoteCounter,
-                voteHistory,
-                setVoteHistory
-              )
-            }
-          >
-            vote up
-          </button>
-          <button
-            onClick={() =>
-              VoteArticle(
-                article_id,
-                -1,
-                username,
-                permission,
-                voteCounter,
-                setVoteCounter,
-                voteHistory,
-                setVoteHistory
-              )
-            }
-          >
-            vote down
-          </button>{" "}
+          {voteCounter}👍
+          <button onClick={() => voteOnClick(1)}>vote up</button>
+          <button onClick={() => voteOnClick(-1)}>vote down</button>{" "}
           {comment_count}💬{" "}
           <button
-            onClick={() => {
-              navigate(`../articles/id/${article_id}/comments`);
-            }}
+            onClick={() => navigate(`../articles/id/${article_id}/comments`)}
           >
             comments
           </button>

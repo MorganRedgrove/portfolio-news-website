@@ -32,6 +32,19 @@ export const CommentCard = ({ comment }) => {
     });
   }, [author]);
 
+  const voteOnClick = (increment) => {
+    VoteComment(
+      comment_id,
+      increment,
+      username,
+      permission,
+      voteCounter,
+      setVoteCounter,
+      voteHistory,
+      setVoteHistory
+    );
+  };
+
   const deleteOnClick = (comment_id) => {
     deleteComment(comment_id).then(() => {
       alert("Comment has been deleted");
@@ -48,35 +61,17 @@ export const CommentCard = ({ comment }) => {
           {voteCounter}👍{" "}
           <button
             onClick={() => {
-              VoteComment(
-                comment_id,
-                1,
-                username,
-                permission,
-                voteCounter,
-                setVoteCounter,
-                voteHistory,
-                setVoteHistory
-              );
+              voteOnClick(1);
             }}
           >
-            vote up
+            ⬆️
           </button>
           <button
             onClick={() => {
-              VoteComment(
-                comment_id,
-                -1,
-                username,
-                permission,
-                voteCounter,
-                setVoteCounter,
-                voteHistory,
-                setVoteHistory
-              );
+              voteOnClick(-1);
             }}
           >
-            vote down
+            ⬇️
           </button>
         </p>
       </div>

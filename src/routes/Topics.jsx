@@ -34,11 +34,15 @@ export const Topics = () => {
       <div className="content">
         <h1>Topics</h1>
 
-        {isLoading ? <Loading /> : null}
-
-        {topics.map((topic) => {
-          return <TopicCard topic={topic}></TopicCard>;
-        })}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div>
+            {topics.map((topic) => {
+              return <TopicCard topic={topic}></TopicCard>;
+            })}
+          </div>
+        )}
       </div>
 
       <Footer />

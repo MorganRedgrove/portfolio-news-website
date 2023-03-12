@@ -19,14 +19,16 @@ export const Banner = () => {
   return (
     <div>
       <header>
-        <h1>NC News</h1>
+        <Link to="/">
+          <h1>NC News</h1>
+        </Link>
 
         <nav>
           <Link to="/articles">Articles</Link>
           {topics.map(({ slug }) => {
             return (
               <Link key={slug} to={`/articles/${slug}`}>
-                {slug}
+                {slug[0].toUpperCase() + slug.slice(1)}
               </Link>
             );
           })}

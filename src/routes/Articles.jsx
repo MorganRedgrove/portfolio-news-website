@@ -46,14 +46,13 @@ export const Articles = () => {
               })
             );
           }
-
           setIsLoading(false);
         });
       })
       .catch((err) => {
         setError(err.response.statusText);
       });
-  }, [topic, sort_by, order, setIsLoading]);
+  }, [topic, sort_by, order]);
 
   if (error) {
     return <Error msg={error} />;
