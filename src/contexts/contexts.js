@@ -1,27 +1,17 @@
 import { useState, createContext, useEffect } from "react";
 import { getUsers } from "../utils/ApiCalls";
 
-// voting
-export const VotingContext = createContext();
-
-export const VotingProvider = ({ children }) => {
-  const [voteHistory, setVoteHistory] = useState({});
-
-  return (
-    <VotingContext.Provider value={{ voteHistory, setVoteHistory }}>
-      {children}
-    </VotingContext.Provider>
-  );
-};
-
 // user
+
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
-    username: "Guest",
+    username: "guest",
+    name: "Guest",
     avatar_url:
       "https://static.vecteezy.com/system/resources/previews/000/440/213/original/question-mark-vector-icon.jpg",
+    permission: false,
   });
 
   return (
@@ -48,32 +38,5 @@ export const UsersProvider = ({ children }) => {
     <UsersContext.Provider value={{ users, setUsers }}>
       {children}
     </UsersContext.Provider>
-  );
-};
-
-// persmisions
-
-export const PermissionsContext = createContext();
-
-export const PermissionsProvider = ({ children }) => {
-  const [permissions, setpermissions] = useState({ Guest: false });
-
-  useEffect(() => {
-    getUsers()
-      .then((users) => {
-        users.forEach(({ username }) => {
-          permissions[username] = true;
-          setpermissions(permissions);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [permissions]);
-
-  return (
-    <PermissionsContext.Provider value={{ permissions, setpermissions }}>
-      {children}
-    </PermissionsContext.Provider>
   );
 };

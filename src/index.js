@@ -17,13 +17,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <UsersProvider>
     <UserProvider>
-      <PermissionsProvider>
-        <VotingProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </VotingProvider>
-      </PermissionsProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </UserProvider>
   </UsersProvider>
 );
