@@ -1,25 +1,17 @@
-import { Link } from "react-router-dom"
-import { Banner } from "../components/Banner"
-import { Footer } from "../components/Footer"
-
-
+import { Link } from "react-router-dom";
+import { Banner } from "../components/Banner";
+import { Footer } from "../components/Footer";
 
 export const Home = () => {
-    return (
-        <div>
-            <Banner></Banner>
+  return (
+    <body>
+      <Banner />
 
-            <div id="content">
-                <h1>This is the Home page</h1>
+      <div class="content">
+        <h1>Welcome to NC News</h1>
+      </div>
 
-                <Link to="/articles">go to articles</Link>
-
-                <br />
-
-                <Link to="/topics">go to topics</Link>
-            </div>
-
-            <Footer></Footer>
-        </div>
-    )
-}
+      <Footer />
+    </body>
+  );
+};

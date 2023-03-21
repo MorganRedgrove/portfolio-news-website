@@ -50,30 +50,3 @@ export const UsersProvider = ({ children }) => {
     </UsersContext.Provider>
   );
 };
-
-// persmisions
-
-export const PermissionsContext = createContext();
-
-export const PermissionsProvider = ({ children }) => {
-  const [permissions, setpermissions] = useState({ Guest: false });
-
-  useEffect(() => {
-    getUsers()
-      .then((users) => {
-        users.forEach(({ username }) => {
-          permissions[username] = true;
-          setpermissions(permissions);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [permissions]);
-
-  return (
-    <PermissionsContext.Provider value={{ permissions, setpermissions }}>
-      {children}
-    </PermissionsContext.Provider>
-  );
-};

@@ -6,24 +6,15 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 
-import {
-  PermissionsProvider,
-  UserProvider,
-  UsersProvider,
-  VotingProvider,
-} from "./contexts/contexts";
+import { UserProvider, UsersProvider } from "./contexts/contexts";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <UsersProvider>
     <UserProvider>
-      <PermissionsProvider>
-        <VotingProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </VotingProvider>
-      </PermissionsProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </UserProvider>
   </UsersProvider>
 );

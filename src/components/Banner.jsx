@@ -1,41 +1,106 @@
-import { useState, useEffect, useContext } from "react"
-import { Link } from "react-router-dom"
-import { getTopics } from "../utils/ApiCalls"
-import { UserContext } from "../contexts/contexts"
+import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  solid,
+  regular,
+  brands,
+  icon,
+} from "@fortawesome/fontawesome-svg-core/import.macro";
+
+import { getTopics } from "../utils/ApiCalls";
+import { UserContext } from "../contexts/contexts";
+import { OffCanvas } from "./OffCanvas";
 
 export const Banner = () => {
-    const { user: { username, avatar_url } } = useContext(UserContext)
+  const {
+    user: { username, avatar_url, name },
+  } = useContext(UserContext);
 
-    const [topics, setTopics] = useState([])
+  const [topics, setTopics] = useState([]);
+  const [show, setShow] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
-    useEffect(() => {
-        getTopics()
-            .then((topics) => {
-                setTopics(topics)
-            })
-    }, [])
+  useEffect(() => {
+    getTopics().then((topics) => {
+      setTopics(topics);
+    });
+  }, []);
 
+  return (
+    <Navbar
+      key="md"
+      bg="primary"
+      variant="dark"
+      expand="md"
+      className="mb-3"
+      on
+      onToggle={() => {
+        setShowMenu(true);
+        setShow(true);
+      }}
+    >
+      <Container fluid>
+        <Navbar.Brand href="/">
+          <FontAwesomeIcon icon={solid("globe")} />
+          {"  "}
+          Northcoders News
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-    return (
-        <div>
-            <header>
-                <h1>NC News</h1>
+        <Nav className="d-none d-md-flex align-items-center justify-content-start flex-grow-1 ps-3">
+          <Nav.Link href="/articles">Articles</Nav.Link>
 
+          <NavDropdown title="Topics" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="/articles/coding">Coding</NavDropdown.Item>
+            <NavDropdown.Item href="/articles/cooking">
+              Cooking
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/articles/football">
+              Football
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
 
-                <nav>
-                    <Link to="/articles">Articles</Link>
-                    {topics.map(({ slug }) => {
-                        return (
-                            <Link key={slug} to={`/articles/${slug}`}>{slug}</Link>
-                        )
-                    })}
-                </nav>
+        <Nav className="d-none d-md-flex align-items-center justify-content-end flex-grow-1 pe-3">
+          {username === "Guest" ? (
+            <Nav.Link
+              href=""
+              onClick={() => {
+                setShowLogin(true);
+                setShow(true);
+              }}
+            >
+              Login
+            </Nav.Link>
+          ) : (
+            <Nav.Link href="">{username}</Nav.Link>
+          )}
 
-                <img src={avatar_url} alt={username} />
+          <Image
+            src={avatar_url}
+            alt={username}
+            roundedCircle={true}
+            width={35}
+            height={35}
+          />
+        </Nav>
 
-                <h4>{username}</h4>
-            </header>
-        </div>
-    )
-}
+        <OffCanvas
+          show={show}
+          setShow={setShow}
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+          showLogin={showLogin}
+          setShowLogin={setShowLogin}
+          username={username}
+          name={name}
+          avatar_url={avatar_url}
+        />
+      </Container>
+    </Navbar>
+  );
+};
