@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +9,6 @@ import {
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro";
 
-import { getTopics } from "../utils/ApiCalls";
 import { UserContext } from "../contexts/contexts";
 import { OffCanvas } from "./OffCanvas";
 
@@ -19,16 +17,9 @@ export const Banner = () => {
     user: { username, avatar_url, name },
   } = useContext(UserContext);
 
-  const [topics, setTopics] = useState([]);
   const [show, setShow] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-
-  useEffect(() => {
-    getTopics().then((topics) => {
-      setTopics(topics);
-    });
-  }, []);
 
   return (
     <Navbar
@@ -45,16 +36,14 @@ export const Banner = () => {
     >
       <Container fluid>
         <Navbar.Brand href="/">
-          <FontAwesomeIcon icon={solid("globe")} />
-          {"  "}
-          Northcoders News
+          <FontAwesomeIcon icon={solid("globe")} /> Northcoders News
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
         <Nav className="d-none d-md-flex align-items-center justify-content-start flex-grow-1 ps-3">
           <Nav.Link href="/articles">Articles</Nav.Link>
 
-          <NavDropdown title="Topics" id="collasible-nav-dropdown">
+          <NavDropdown title="Topics">
             <NavDropdown.Item href="/articles/coding">Coding</NavDropdown.Item>
             <NavDropdown.Item href="/articles/cooking">
               Cooking
@@ -66,7 +55,7 @@ export const Banner = () => {
         </Nav>
 
         <Nav className="d-none d-md-flex align-items-center justify-content-end flex-grow-1 pe-3">
-          {username === "Guest" ? (
+          {username === "guest" ? (
             <Nav.Link
               href=""
               onClick={() => {

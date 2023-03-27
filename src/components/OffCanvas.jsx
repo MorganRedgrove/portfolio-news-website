@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { Image, Form, Button, Container, Nav } from "react-bootstrap";
+import { Image, Form, Button, Nav, NavDropdown } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 export const OffCanvas = ({
@@ -32,17 +31,29 @@ export const OffCanvas = ({
         <Offcanvas.Title>{name}</Offcanvas.Title>
       </Offcanvas.Header>
 
-      <Offcanvas.Body className="pe-5 ps-5">
+      <Offcanvas.Body className="pe-4 ps-4">
         {showMenu ? (
-          <p>Placeholder text</p>
-        ) : // <Container>
-        //   <Nav.Link href="/articles">Articles</Nav.Link>
-        //   <Nav.Link href="/topics">Topics</Nav.Link>
-        //   <Nav.Link href="/articles/coding">Coding</Nav.Link>
-        //   <Nav.Link href="/articles/cooking">Cooking</Nav.Link>
-        //   <Nav.Link href="/articles/football">Football</Nav.Link>
-        // </Container>
-        null}
+          <Nav>
+            <Nav.Link href="/articles">Articles</Nav.Link>
+            <NavDropdown title="Topics" className="w-50 m-auto">
+              <NavDropdown.Item className="text-center" href="/articles/coding">
+                Coding
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                className="text-center"
+                href="/articles/cooking"
+              >
+                Cooking
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                className="text-center"
+                href="/articles/football"
+              >
+                Football
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        ) : null}
         {showLogin ? (
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
