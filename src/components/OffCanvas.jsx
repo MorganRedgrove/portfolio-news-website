@@ -20,10 +20,10 @@ export const OffCanvas = ({
 
   return (
     <Offcanvas show={show} onHide={handleClose} placement="end">
-      <Offcanvas.Header className="pe-4 ps-4" closeButton>
+      <Offcanvas.Header className="p-4" closeButton>
         <Image
           src={avatar_url}
-          alt={name}
+          alt={username}
           roundedCircle={true}
           width={45}
           height={45}
@@ -31,7 +31,7 @@ export const OffCanvas = ({
         <Offcanvas.Title>{name}</Offcanvas.Title>
       </Offcanvas.Header>
 
-      <Offcanvas.Body className="pe-4 ps-4">
+      <Offcanvas.Body className="p-4">
         {showMenu ? (
           <Nav>
             <Nav.Link href="/articles">Articles</Nav.Link>

@@ -1,4 +1,5 @@
 import { patchArticle } from "./ApiCalls";
+import { Alert } from "react-bootstrap";
 
 export const VoteArticle = (
   article_id,

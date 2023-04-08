@@ -63,7 +63,6 @@ export const patchArticle = (article_id, inc_votes, username) => {
 
 export const getTopics = () => {
   return apiCaller.get("/topics").then((response) => {
-    console.log(response.data.topics);
     return response.data.topics;
   });
 };

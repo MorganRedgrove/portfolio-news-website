@@ -1,6 +1,8 @@
 $primary: #fc2525;
 $body-text-align: center;
 
+@import "~bootstrap/scss/bootstrap";
+
 * {
   margin: 0;
   padding: 0;
@@ -15,17 +17,57 @@ body {
 
 .content {
   flex: 1 0 auto;
-  width: auto;
-  min-width: 250px;
-  margin-left: 20%;
-  margin-right: 20%;
+  min-width: 300px;
 }
 
-@import "~bootstrap/scss/bootstrap";
+.content-header {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.article-card {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  overflow: hidden;
+  img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+  }
+  p {
+    padding: 2px;
+    margin: 0;
+    font-style: italic;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .article-card {
+    flex-direction: column;
+    img {
+      width: 100%;
+    }
+  }
+  .content-header {
+    position: relative;
+  }
+}
+
 .navbar-brand {
   --bs-navbar-brand-font-size: x-large;
 }
 
 .nav-link {
   --bs-nav-link-font-size: large;
+}
+
+a {
+  text-decoration: none;
 }

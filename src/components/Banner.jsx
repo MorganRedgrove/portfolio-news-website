@@ -1,13 +1,9 @@
 import { useState, useContext } from "react";
+
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  solid,
-  regular,
-  brands,
-  icon,
-} from "@fortawesome/fontawesome-svg-core/import.macro";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import { UserContext } from "../contexts/contexts";
 import { OffCanvas } from "./OffCanvas";
@@ -28,7 +24,6 @@ export const Banner = () => {
       variant="dark"
       expand="md"
       className="mb-3"
-      on
       onToggle={() => {
         setShowMenu(true);
         setShow(true);
@@ -36,9 +31,10 @@ export const Banner = () => {
     >
       <Container fluid>
         <Navbar.Brand href="/">
-          <FontAwesomeIcon icon={solid("globe")} /> Northcoders News
+          <FontAwesomeIcon icon={icon({ name: "globe" })} /> Northcoders News
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
+        <Navbar.Toggle />
 
         <Nav className="d-none d-md-flex align-items-center justify-content-start flex-grow-1 ps-3">
           <Nav.Link href="/articles">Articles</Nav.Link>

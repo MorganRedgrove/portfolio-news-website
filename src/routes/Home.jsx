@@ -1,3 +1,4 @@
+import { Container } from "react-bootstrap";
 import { Banner } from "../components/Banner";
 import { Footer } from "../components/Footer";
 
@@ -6,9 +7,9 @@ export const Home = () => {
     <body>
       <Banner />
 
-      <div class="content">
+      <Container className="content">
         <h1>Welcome to NC News</h1>
-      </div>
+      </Container>
 
       <Footer />
     </body>
