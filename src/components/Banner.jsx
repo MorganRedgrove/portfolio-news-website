@@ -1,11 +1,12 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
-import { UserContext } from "../contexts/contexts";
+import { OffCanvasContext, UserContext } from "../contexts/contexts";
+
 import { OffCanvas } from "./OffCanvas";
 
 export const Banner = () => {
@@ -13,9 +14,7 @@ export const Banner = () => {
     user: { username, avatar_url, name },
   } = useContext(UserContext);
 
-  const [show, setShow] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  const { setOffCanvas } = useContext(OffCanvasContext);
 
   return (
     <Navbar
@@ -25,18 +24,17 @@ export const Banner = () => {
       expand="md"
       className="mb-3"
       onToggle={() => {
-        setShowMenu(true);
-        setShow(true);
+        setOffCanvas({ show: true, content: "menu" });
       }}
     >
-      <Container fluid>
-        <Navbar.Brand href="/">
+      <Container>
+        <Navbar.Brand className="fs-3" href="/">
           <FontAwesomeIcon icon={icon({ name: "globe" })} /> Northcoders News
         </Navbar.Brand>
 
         <Navbar.Toggle />
 
-        <Nav className="d-none d-md-flex align-items-center justify-content-start flex-grow-1 ps-3">
+        <Nav className="d-none d-md-flex align-items-center justify-content-start flex-grow-1 fs-5">
           <Nav.Link href="/articles">Articles</Nav.Link>
 
           <NavDropdown title="Topics">
@@ -50,41 +48,63 @@ export const Banner = () => {
           </NavDropdown>
         </Nav>
 
-        <Nav className="d-none d-md-flex align-items-center justify-content-end flex-grow-1 pe-3">
+        <Nav className="d-none d-md-flex align-items-center justify-content-end flex-grow-1 pe-3 fs-5">
           {username === "guest" ? (
-            <Nav.Link
-              href=""
-              onClick={() => {
-                setShowLogin(true);
-                setShow(true);
-              }}
-            >
-              Login
-            </Nav.Link>
-          ) : (
-            <Nav.Link href="">{username}</Nav.Link>
-          )}
+            <>
+              <Nav.Link
+                href=""
+                onClick={() => {
+                  setOffCanvas({ show: true, content: "login" });
+                }}
+              >
+                Login
+              </Nav.Link>
 
-          <Image
-            src={avatar_url}
-            alt={username}
-            roundedCircle={true}
-            width={35}
-            height={35}
-          />
+              <Nav.Link
+                href=""
+                onClick={() => {
+                  setOffCanvas({ show: true, content: "login" });
+                }}
+              >
+                <Image
+                  src={avatar_url}
+                  alt={username}
+                  roundedCircle={true}
+                  width={35}
+                  height={35}
+                />
+              </Nav.Link>
+            </>
+          ) : (
+            <>
+              <Nav.Link
+                href=""
+                onClick={() => {
+                  setOffCanvas({ show: true, content: "user" });
+                }}
+              >
+                {username}
+              </Nav.Link>
+
+              <Nav.Link
+                href=""
+                onClick={() => {
+                  setOffCanvas({ show: true, content: "user" });
+                }}
+              >
+                <Image
+                  src={avatar_url}
+                  alt={username}
+                  roundedCircle={true}
+                  width={35}
+                  height={35}
+                />
+              </Nav.Link>
+            </>
+          )}
         </Nav>
 
-        <OffCanvas
-          show={show}
-          setShow={setShow}
-          showMenu={showMenu}
-          setShowMenu={setShowMenu}
-          showLogin={showLogin}
-          setShowLogin={setShowLogin}
-          username={username}
-          name={name}
-          avatar_url={avatar_url}
-        />
+        <OffCanvas username={username} name={name} avatar_url={avatar_url} />
       </Container>
     </Navbar>
   );

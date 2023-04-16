@@ -1,7 +1,5 @@
 export const Footer = () => {
-    return (
-        <footer>
-            Copyright Northcoders 2023
-        </footer>
-    )
-}
+  const currentYear = new Date().getFullYear();
+
+  return <footer>Copyright Northcoders {currentYear}</footer>;
+};

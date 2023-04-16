@@ -1,16 +1,18 @@
-import { Banner } from "./Banner"
-import { Footer } from "./Footer"
+import { Container } from "react-bootstrap";
+import { Banner } from "./Banner";
+import { Footer } from "./Footer";
 
-export const Error = ({msg}) => {
-    return (
-        <div>
-        <Banner></Banner>
+export const Error = ({ code, msg }) => {
+  return (
+    <>
+      <Banner />
 
-        <div id="content">
-            <h1>{msg}</h1>
-        </div>
+      <Container className="content">
+        <h1 className="text-primary fs-1 mb-0">{code}</h1>
+        <h1>{msg}</h1>
+      </Container>
 
-        <Footer></Footer>
-    </div>
-    )
-}
+      <Footer />
+    </>
+  );
+};

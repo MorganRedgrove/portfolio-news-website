@@ -1,10 +1,17 @@
 import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+
+import { Image, Alert } from "react-bootstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+
 import { deleteComment, getUser } from "../utils/ApiCalls";
 import { UserContext } from "../contexts/contexts";
 
-import { VoteComment } from "../utils/VoteComment";
+import { Vote } from "../utils/Vote";
 
-export const CommentCard = ({ comment }) => {
+export const CommentCard = ({ comment, setRefresh }) => {
   const { comment_id, author, body, created_at, votes, vote_history } = comment;
 
   const {
@@ -14,8 +21,11 @@ export const CommentCard = ({ comment }) => {
   const [voteCounter, setVoteCounter] = useState(votes);
   const [voteHistory, setVoteHistory] = useState(vote_history);
   const [avatar, setAvatar] = useState(
-    "https://static.vecteezy.com/system/resources/previews/000/440/213/original/question-mark-vector-icon.jpg"
+    require("../assets/image-placeholder.png")
   );
+  const [alert, setAlert] = useState({ show: false });
+
+  const { show, variant, msg } = alert;
 
   const date = new Date(created_at);
   const dateFormatted = date.toLocaleString("en-GB", {
@@ -33,11 +43,12 @@ export const CommentCard = ({ comment }) => {
   }, [author]);
 
   const voteOnClick = (increment) => {
-    VoteComment(
+    Vote(
+      "comment",
       comment_id,
       increment,
-      username,
       permission,
+      username,
       voteCounter,
       setVoteCounter,
       voteHistory,
@@ -46,49 +57,90 @@ export const CommentCard = ({ comment }) => {
   };
 
   const deleteOnClick = (comment_id) => {
-    deleteComment(comment_id).then(() => {
-      alert("Comment has been deleted");
-      window.location.reload();
-    });
+    deleteComment(comment_id)
+      .then(() => {
+        setAlert({
+          show: true,
+          variant: "danger",
+          msg: "Comment Deleted!",
+        });
+        setTimeout(() => {
+          setRefresh(true);
+        }, 1500);
+      })
+      .catch((err) => {
+        alert("Sorry we couldn't delete your comment");
+      });
   };
 
-  return (
-    <div className="comment-card">
-      <div className="comment-card-user">
-        <img src={avatar} alt={author} />
-        <h3>{author}</h3>
-        <p className="comment-card-buttons">
-          {voteCounter}👍{" "}
-          <button
-            onClick={() => {
-              voteOnClick(1);
-            }}
-          >
-            ⬆️
-          </button>
-          <button
-            onClick={() => {
-              voteOnClick(-1);
-            }}
-          >
-            ⬇️
-          </button>
-        </p>
+  return show ? (
+    <Alert
+      className="d-flex col-12 mb-5"
+      show={show}
+      key={variant}
+      variant={variant}
+    >
+      {msg}
+    </Alert>
+  ) : (
+    <div className="d-flex mb-5">
+      <div className="d-flex flex-column col-2 align-items-center me-3">
+        <Image
+          className="border border-secondary mb-2"
+          src={avatar}
+          alt={author}
+          roundedCircle={true}
+          width={45}
+          height={45}
+        />
+
+        <h5 className="text-break">{author}</h5>
+
+        <h5 className="d-flex align-items-center">
+          {voteCounter}
+          &nbsp;
+          <Link to="">
+            <FontAwesomeIcon
+              className="mb-1"
+              onClick={() => {
+                voteOnClick(+1);
+              }}
+              icon={icon({ name: "thumbs-up" })}
+            />
+          </Link>
+          &nbsp;
+          <Link className="link-secondary" to="">
+            <FontAwesomeIcon
+              onClick={() => voteOnClick(-1)}
+              icon={icon({ name: "thumbs-down" })}
+            />
+          </Link>
+        </h5>
       </div>
 
-      <div className="comment-card-text">
+      <div className="d-flex flex-column col-10 flex-shrink-1 text-start">
         <p>{body}</p>
+
         <br />
-        <p className="comment-card-timestamp">{dateFormatted}</p>
-        {author === username ? (
-          <button
-            onClick={() => {
-              deleteOnClick(comment_id);
-            }}
-          >
-            delete
-          </button>
-        ) : null}
+
+        <div className="d-flex flex-grow-1">
+          <p className="d-flex align-items-end flex-grow-1 mb-0 text-secondary">
+            <em>{dateFormatted}</em>
+          </p>
+
+          <h4 className="d-flex justify-content-end align-items-end mb-0 me-2">
+            {author === username ? (
+              <Link to="">
+                <FontAwesomeIcon
+                  onClick={() => {
+                    deleteOnClick(comment_id);
+                  }}
+                  icon={icon({ name: "trash-can" })}
+                />
+              </Link>
+            ) : null}
+          </h4>
+        </div>
       </div>
     </div>
   );

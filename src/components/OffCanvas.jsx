@@ -1,21 +1,18 @@
+import { useContext } from "react";
+
 import { Image, Form, Button, Nav, NavDropdown } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
-export const OffCanvas = ({
-  show,
-  setShow,
-  showMenu,
-  setShowMenu,
-  showLogin,
-  setShowLogin,
-  username,
-  name,
-  avatar_url,
-}) => {
+import { OffCanvasContext } from "../contexts/contexts";
+
+export const OffCanvas = ({ username, name, avatar_url }) => {
+  const {
+    offCanvas: { show, content },
+    setOffCanvas,
+  } = useContext(OffCanvasContext);
+
   const handleClose = () => {
-    setShowMenu(false);
-    setShowLogin(false);
-    setShow(false);
+    setOffCanvas({ show: false, content: null });
   };
 
   return (
@@ -28,11 +25,11 @@ export const OffCanvas = ({
           width={45}
           height={45}
         />
-        <Offcanvas.Title>{name}</Offcanvas.Title>
+        <Offcanvas.Title className="fs-4">{name}</Offcanvas.Title>
       </Offcanvas.Header>
 
-      <Offcanvas.Body className="p-4">
-        {showMenu ? (
+      <Offcanvas.Body className="p-4 fs-5">
+        {content === "menu" ? (
           <Nav>
             <Nav.Link href="/articles">Articles</Nav.Link>
             <NavDropdown title="Topics" className="w-50 m-auto">
@@ -54,7 +51,8 @@ export const OffCanvas = ({
             </NavDropdown>
           </Nav>
         ) : null}
-        {showLogin ? (
+
+        {content === "login" ? (
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -66,11 +64,11 @@ export const OffCanvas = ({
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
-              Login
-            </Button>
+            <Button variant="primary">Login</Button>
           </Form>
         ) : null}
+
+        {content === "user" ? <p>Placeholder for user profile</p> : null}
       </Offcanvas.Body>
     </Offcanvas>
   );
