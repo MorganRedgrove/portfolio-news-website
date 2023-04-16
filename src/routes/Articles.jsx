@@ -8,7 +8,7 @@ import { Footer } from "../components/Footer";
 import { Error } from "../components/Error";
 import { ArticleCard } from "../components/ArticleCard";
 
-import { getArticles, getTopics } from "../utils/ApiCalls";
+import { getArticles } from "../utils/ApiCalls";
 import { ArticleCardPlaceholder } from "../placeholders/ArticleCardPlaceholder";
 
 export const Articles = () => {
@@ -31,7 +31,6 @@ export const Articles = () => {
   const [order, setOrder] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isValidTopic, setIsValidTopic] = useState(false);
 
   const articleKeys = [
     { key: "Title", value: "title" },
