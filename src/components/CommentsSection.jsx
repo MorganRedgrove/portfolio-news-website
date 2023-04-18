@@ -10,7 +10,11 @@ import { getComments } from "../utils/ApiCalls";
 
 import { CommentCardPlaceholder } from "../placeholders/CommentCardPlaceholder";
 
-export const CommentsSection = ({ article_id, display_count = 0 }) => {
+export const CommentsSection = ({
+  article_id,
+  comment_count,
+  display_count = 0,
+}) => {
   const [comments, setComments] = useState([{}, {}, {}, {}, {}]);
   const [isLoading, setIsLoading] = useState(true);
   const [refresh, setRefresh] = useState(Date.now());
@@ -58,7 +62,7 @@ export const CommentsSection = ({ article_id, display_count = 0 }) => {
         })
       )}
 
-      {comments.length - display_count > 0 ? (
+      {comments.length - display_count > 0 && !isLoading ? (
         <Button
           onClick={() => {
             navigate("./comments");
