@@ -1,44 +1,111 @@
-import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import { getTopics } from "../utils/ApiCalls";
-import { UserContext } from "../contexts/contexts";
+import { useContext } from "react";
+
+import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+
+import { OffCanvasContext, UserContext } from "../contexts/contexts";
+
+import { OffCanvas } from "./OffCanvas";
 
 export const Banner = () => {
   const {
-    user: { username, avatar_url },
+    user: { username, avatar_url, name },
   } = useContext(UserContext);
 
-  const [topics, setTopics] = useState([]);
-
-  useEffect(() => {
-    getTopics().then((topics) => {
-      setTopics(topics);
-    });
-  }, []);
+  const { setOffCanvas } = useContext(OffCanvasContext);
 
   return (
-    <div>
-      <header>
-        <Link to="/">
-          <h1>NC News</h1>
-        </Link>
+    <Navbar
+      key="md"
+      bg="primary"
+      variant="dark"
+      expand="md"
+      className="mb-3"
+      onToggle={() => {
+        setOffCanvas({ show: true, content: "menu" });
+      }}
+    >
+      <Container>
+        <Navbar.Brand className="fs-3" href="/">
+          <FontAwesomeIcon icon={icon({ name: "globe" })} /> Northcoders News
+        </Navbar.Brand>
 
-        <nav>
-          <Link to="/articles">Articles</Link>
-          {topics.map(({ slug }) => {
-            return (
-              <Link key={slug} to={`/articles/${slug}`}>
-                {slug[0].toUpperCase() + slug.slice(1)}
-              </Link>
-            );
-          })}
-        </nav>
-        <Link to="/login">
-          <img src={avatar_url} alt={username} />
-        </Link>
+        <Navbar.Toggle />
 
-        <h4>{username}</h4>
-      </header>
-    </div>
+        <Nav className="d-none d-md-flex align-items-center justify-content-start flex-grow-1 fs-5">
+          <Nav.Link href="/articles">Articles</Nav.Link>
+
+          <NavDropdown title="Topics">
+            <NavDropdown.Item href="/articles/coding">Coding</NavDropdown.Item>
+            <NavDropdown.Item href="/articles/cooking">
+              Cooking
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/articles/football">
+              Football
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+
+        <Nav className="d-none d-md-flex align-items-center justify-content-end flex-grow-1 pe-3 fs-5">
+          {username === "guest" ? (
+            <>
+              <Nav.Link
+                href=""
+                onClick={() => {
+                  setOffCanvas({ show: true, content: "login" });
+                }}
+              >
+                Login
+              </Nav.Link>
+
+              <Nav.Link
+                href=""
+                onClick={() => {
+                  setOffCanvas({ show: true, content: "login" });
+                }}
+              >
+                <Image
+                  src={avatar_url}
+                  alt={username}
+                  roundedCircle={true}
+                  width={35}
+                  height={35}
+                />
+              </Nav.Link>
+            </>
+          ) : (
+            <>
+              <Nav.Link
+                href=""
+                onClick={() => {
+                  setOffCanvas({ show: true, content: "user" });
+                }}
+              >
+                {username}
+              </Nav.Link>
+
+              <Nav.Link
+                href=""
+                onClick={() => {
+                  setOffCanvas({ show: true, content: "user" });
+                }}
+              >
+                <Image
+                  src={avatar_url}
+                  alt={username}
+                  roundedCircle={true}
+                  width={35}
+                  height={35}
+                />
+              </Nav.Link>
+            </>
+          )}
+        </Nav>
+
+        <OffCanvas username={username} name={name} avatar_url={avatar_url} />
+      </Container>
+    </Navbar>
   );
 };

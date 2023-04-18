@@ -1,16 +1,32 @@
 import { useState, useContext } from "react";
-import { UserContext } from "../contexts/contexts";
-import { postComment } from "../utils/ApiCalls";
 import { Link } from "react-router-dom";
 
-export const CommentForm = ({ article_id }) => {
+import { Form, Button, Alert } from "react-bootstrap";
+
+import { OffCanvasContext, UserContext } from "../contexts/contexts";
+
+import { postComment } from "../utils/ApiCalls";
+
+export const CommentForm = ({
+  article_id,
+  setRefresh,
+  setComments,
+  comments,
+}) => {
   const {
     user: { username, permission },
   } = useContext(UserContext);
 
-  const [body, setBody] = useState({});
+  const { setOffCanvas } = useContext(OffCanvasContext);
+
+  const [body, setBody] = useState("");
+  const [alert, setAlert] = useState({ show: false });
+
+  const { show, variant, msg } = alert;
 
   const comment = { username, body };
+
+  const charLimit = 300;
 
   const changeHandler = (event) => {
     setBody(event.target.value);
@@ -20,45 +36,73 @@ export const CommentForm = ({ article_id }) => {
     event.preventDefault();
     postComment(article_id, comment)
       .then(() => {
-        alert("Comment posted!");
-        window.location.reload();
+        event.target.reset();
+        setBody("");
+        setAlert({ show: true, variant: "success", msg: "Comment posted!" });
+        setRefresh(Date.now());
       })
       .catch((err) => {
-        console.log(err);
-        alert("Sorry we couldn't post your comment");
+        setAlert({
+          show: true,
+          variant: "danger",
+          msg: "Sorry we couldn't post your comment",
+        });
       });
   };
 
   return (
-    <div className="comment-form">
-      <div className="comment-form-login">
-        {username === "guest" ? (
-          <div>
-            <h3>You must be logged in to comment on this article</h3>
-            <Link to="/login">Login</Link>
-          </div>
-        ) : null}
-      </div>
+    <div className="d-flex flex-column align-items-center col-12 mb-5">
+      {username === "guest" ? (
+        <h3>
+          You must be logged in to comment on this article <br />{" "}
+          <Link
+            to=""
+            onClick={() => {
+              setOffCanvas({ show: true, content: "login" });
+            }}
+          >
+            Login
+          </Link>
+        </h3>
+      ) : null}
 
-      <div>
-        <form className="form">
-          <textarea
-            className="comment-form-textarea"
-            onChange={changeHandler}
+      <Form className="d-flex flex-column align-items-center col-8">
+        <Alert
+          className="d-flex col-12 mb-1"
+          show={show}
+          key={variant}
+          variant={variant}
+          delay={3000}
+          autohide
+          dismissible
+          onClose={() => setAlert({ show: false })}
+        >
+          {msg}
+        </Alert>
+
+        <Form.Group rows={5} className="col-12 mb-1">
+          <Form.Control
+            as="textarea"
+            maxLength={300}
+            rows={5}
             disabled={!permission}
-            rows="5"
-            cols="75"
-          ></textarea>
-          <div>
-            <button type="reset" disabled={!permission}>
-              reset
-            </button>
-            <button type="submit" disabled={!permission}>
-              submit
-            </button>
-          </div>
-        </form>
-      </div>
+            onChange={changeHandler}
+          />
+        </Form.Group>
+
+        <p className="text-secondary">{`(${
+          charLimit - body?.length
+        }/${charLimit} characters remaining)`}</p>
+
+        <div>
+          <Button variant="primary" type="submit" disabled={!permission}>
+            Submit
+          </Button>{" "}
+          <Button variant="primary" type="Reset" disabled={!permission}>
+            Reset
+          </Button>
+        </div>
+      </Form>
     </div>
   );
 };

@@ -25,14 +25,9 @@ export const getArticles = ({ topic, sort_by, order }) => {
     endpoint += queryArr.join("&");
   }
 
-  return apiCaller
-    .get(endpoint)
-    .then((response) => {
-      return response.data.articles;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  return apiCaller.get(endpoint).then((response) => {
+    return response.data.articles;
+  });
 };
 
 export const getArticle = (article_id) => {
@@ -63,7 +58,6 @@ export const patchArticle = (article_id, inc_votes, username) => {
 
 export const getTopics = () => {
   return apiCaller.get("/topics").then((response) => {
-    console.log(response.data.topics);
     return response.data.topics;
   });
 };

@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 
 import { Route, Routes } from "react-router-dom";
 
@@ -7,8 +7,7 @@ import { Articles } from "./routes/Articles";
 import { Article } from "./routes/Article";
 import { Comments } from "./routes/Comments";
 import { Topics } from "./routes/Topics";
-import { Login } from "./routes/Login";
-import { NotFound } from "./routes/NotFound";
+import { Error } from "./components/Error";
 
 function App() {
   return (
@@ -23,9 +22,7 @@ function App() {
           element={<Comments />}
         ></Route>
         <Route path="/topics" element={<Topics />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="not-found" element={<NotFound />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
+        <Route path="*" element={<Error code={404} msg="Not Found" />}></Route>
       </Routes>
     </div>
   );

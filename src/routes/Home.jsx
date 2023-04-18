@@ -1,27 +1,18 @@
-import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
+
 import { Banner } from "../components/Banner";
 import { Footer } from "../components/Footer";
 
 export const Home = () => {
   return (
-    <div>
-      <Banner></Banner>
+    <>
+      <Banner />
 
-      <div id="content">
+      <Container className="content">
         <h1>Welcome to NC News</h1>
+      </Container>
 
-        <Link to="/articles">
-          <h2>Articles</h2>
-        </Link>
-
-        <br />
-
-        <Link to="/topics">
-          <h2>Topics</h2>
-        </Link>
-      </div>
-
-      <Footer></Footer>
-    </div>
+      <Footer />
+    </>
   );
 };

@@ -7,19 +7,20 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 import {
-  PermissionsProvider,
+  OffCanvasProvider,
   UserProvider,
   UsersProvider,
-  VotingProvider,
 } from "./contexts/contexts";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <UsersProvider>
     <UserProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <OffCanvasProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </OffCanvasProvider>
     </UserProvider>
   </UsersProvider>
 );

@@ -1,17 +1,21 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+
+import { Container } from "react-bootstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import { Banner } from "../components/Banner";
 import { Footer } from "../components/Footer";
-import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
-import { ArticleComments } from "../components/ArticleComments";
-import { CommentForm } from "../components/CommentForm";
 
 import { getArticle } from "../utils/ApiCalls";
-import { VoteArticle } from "../utils/VoteArticle.jsx";
+import { Vote } from "../utils/Vote";
 
 import { UserContext } from "../contexts/contexts";
+import { ArticlePlaceholder } from "../placeholders/ArticlePlaceholder";
+import { CommentsSection } from "../components/CommentsSection";
 
 export const Article = () => {
   const params = useParams();
@@ -36,6 +40,7 @@ export const Article = () => {
     article_img_url,
     comment_count,
   } = article;
+
   const date = new Date(created_at);
   const dateFormatted = date.toLocaleDateString("en-GB", {
     day: "numeric",
@@ -53,16 +58,18 @@ export const Article = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        setError(err.response.statusText);
+        console.log(err);
+        setError({ code: err.response.status, msg: err.response.statusText });
       });
   }, [article_id]);
 
   const voteOnClick = (increment) => {
-    VoteArticle(
+    Vote(
+      "article",
       article_id,
       increment,
-      username,
       permission,
+      username,
       voteCounter,
       setVoteCounter,
       voteHistory,
@@ -71,62 +78,84 @@ export const Article = () => {
   };
 
   if (error) {
-    return <Error msg={error} />;
+    return <Error code={error.code} msg={error.msg} />;
   }
 
   return (
-    <div>
+    <>
       <Banner />
 
-      <div id="content">
+      <Container className="content">
         {isLoading ? (
-          <Loading />
+          <ArticlePlaceholder />
         ) : (
-          <div>
-            <div class="article">
-              <h1 style={{ fontSize: 52 }}>{title}</h1>
-
-              <div className="article-details">
-                <p>by {author}</p>
-                <p>{dateFormatted}</p>
-                <p>{topic}</p>
-              </div>
-
-              <div className="article-body">
-                <img src={article_img_url} alt="title" />
-                <p>{body}</p>
-              </div>
-
-              <div className="article-buttons">
-                <p>
-                  {voteCounter}👍{" "}
-                  <button onClick={() => voteOnClick(1)}>vote up</button>
-                  <button onClick={() => voteOnClick(-1)}>vote down</button>
-                </p>
-              </div>
+          <>
+            <div className="text-start">
+              <h1>{title}</h1>
+              <p>
+                by {author}
+                <span className="text-secondary"> | </span>
+                {dateFormatted}
+                <span className="text-secondary"> | </span>
+                <Link to={`../articles/${topic}`}>{topic}</Link>
+              </p>
             </div>
 
-            <div class="article">
-              <h1>Comments</h1>
-              <p>{comment_count}💬</p>
-
-              <CommentForm article_id={article_id} />
-            </div>
-
-            {comment_count === 0 ? (
-              <h2>Be the first to comment...</h2>
-            ) : (
-              <ArticleComments
-                article_id={article_id}
-                comment_count={comment_count}
-                display_count={5}
+            <div className="text-start mb-3">
+              <img
+                className="article-img mb-2"
+                src={article_img_url}
+                alt={title}
               />
-            )}
-          </div>
+
+              <p>{body}</p>
+
+              <h2 className="d-flex align-items-center justify-content-center">
+                {voteCounter}
+                &nbsp;
+                <Link to="">
+                  <FontAwesomeIcon
+                    className="mb-1"
+                    onClick={() => {
+                      voteOnClick(+1);
+                    }}
+                    icon={icon({ name: "thumbs-up" })}
+                  />
+                </Link>
+                &nbsp;
+                <Link className="link-secondary" to="">
+                  <FontAwesomeIcon
+                    onClick={() => voteOnClick(-1)}
+                    icon={icon({ name: "thumbs-down" })}
+                  />
+                </Link>
+              </h2>
+            </div>
+
+            <hr></hr>
+
+            <div className="d-flex flex-column align-items-center justify-content-center mb-2">
+              <h1>Comments</h1>
+              <h2>
+                {comment_count}
+                &nbsp;
+                <FontAwesomeIcon
+                  className="text-primary mb-1"
+                  icon={icon({ name: "comments" })}
+                />
+              </h2>
+            </div>
+
+            <CommentsSection
+              article_id={article_id}
+              comment_count={comment_count}
+              display_count={5}
+            />
+          </>
         )}
-      </div>
+      </Container>
 
       <Footer />
-    </div>
+    </>
   );
 };

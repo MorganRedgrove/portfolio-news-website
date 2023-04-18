@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import { Container, Placeholder } from "react-bootstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+
 import { Banner } from "../components/Banner";
 import { Footer } from "../components/Footer";
-import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
-import { ArticleComments } from "../components/ArticleComments";
+import { CommentsSection } from "../components/CommentsSection";
 
 import { getArticle } from "../utils/ApiCalls";
 
@@ -17,13 +21,7 @@ export const Comments = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { title, topic, author, created_at, comment_count } = article;
-  const date = new Date(created_at);
-  const dateFormatted = date.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const { title, comment_count } = article;
 
   useEffect(() => {
     setIsLoading(true);
@@ -33,48 +31,64 @@ export const Comments = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        setError(err.response.statusText);
+        console.log(err);
+        setError({ code: err.response.status, msg: err.response.statusText });
       });
   }, [article_id]);
 
   if (error) {
-    return <Error msg={error} />;
+    return <Error code={error.code} msg={error.msg} />;
   }
 
   return (
-    <div>
+    <>
       <Banner />
 
-      <div id="content">
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <div>
-            <h1>{title}</h1>
+      <Container className="content">
+        <>
+          {isLoading ? (
+            <>
+              <h1 className="mb-2">
+                <Placeholder animation="glow">
+                  <Placeholder className="rounded-2" xs={10} />
+                </Placeholder>
+              </h1>
 
-            <div className="article-details">
-              <p>by {author}</p>
-              <p>{dateFormatted}</p>
-              <p>{topic}</p>
-            </div>
+              <h2 className="mb-2">
+                <Placeholder animation="glow">
+                  <Placeholder className="rounded-2" xs={1} />
+                </Placeholder>
+                &nbsp;
+                <FontAwesomeIcon
+                  className="text-primary mb-1"
+                  icon={icon({ name: "comments" })}
+                />
+              </h2>
+            </>
+          ) : (
+            <>
+              <h1 className="mb-2">{title}</h1>
 
-            <h1>Comments</h1>
-            <p>{comment_count}💬</p>
+              <h2 className="mb-2">
+                {comment_count}
+                &nbsp;
+                <FontAwesomeIcon
+                  className="text-primary mb-1"
+                  icon={icon({ name: "comments" })}
+                />
+              </h2>
+            </>
+          )}
 
-            {comment_count === 0 ? (
-              <h2>Be the first to comment...</h2>
-            ) : (
-              <ArticleComments
-                article_id={article_id}
-                comment_count={comment_count}
-                display_count={comment_count}
-              />
-            )}
-          </div>
-        )}
-      </div>
+          <CommentsSection
+            article_id={article_id}
+            comment_count={comment_count}
+            display_count={comment_count}
+          />
+        </>
+      </Container>
 
       <Footer />
-    </div>
+    </>
   );
 };

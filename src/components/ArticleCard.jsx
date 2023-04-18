@@ -1,19 +1,21 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { VoteArticle } from "../utils/VoteArticle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+
+import { Vote } from "../utils/Vote";
 
 import { UserContext } from "../contexts/contexts";
 
 export const ArticleCard = ({ article }) => {
-  const {
+  let {
     article_id,
     title,
     topic,
     author,
     created_at,
     article_img_url,
-    comment_count,
     votes,
     vote_history,
   } = article;
@@ -32,14 +34,13 @@ export const ArticleCard = ({ article }) => {
     year: "numeric",
   });
 
-  const navigate = useNavigate();
-
   const voteOnClick = (increment) => {
-    VoteArticle(
+    Vote(
+      "article",
       article_id,
       increment,
-      username,
       permission,
+      username,
       voteCounter,
       setVoteCounter,
       voteHistory,
@@ -48,32 +49,46 @@ export const ArticleCard = ({ article }) => {
   };
 
   return (
-    <div className="article-card">
-      <div className="article-card-img">
-        <Link to={`/articles/id/${article_id}`}>
-          <img src={article_img_url} alt={title} />
-        </Link>
-      </div>
+    <div className="d-flex flex-column flex-md-row rounded border border-primary overflow-hidden text-start mb-3 p-0">
+      <Link to={`/articles/id/${article_id}`}>
+        <img
+          className="article-card-img"
+          src={article_img_url}
+          alt={article_id}
+        />
+      </Link>
 
-      <div className="article-card-text">
-        <Link to={`/articles/id/${article_id}`}>
-          <h1>{title}</h1>
-        </Link>
+      <div className="d-flex flex-column m-2 flex-grow-1">
+        <h2>
+          <Link to={`/articles/id/${article_id}`}>{title}</Link>
+        </h2>
 
-        <p>by {author}</p>
-        <p>{dateFormatted}</p>
-        <p>{topic}</p>
-        <p className="article-card-buttons">
-          {voteCounter}👍
-          <button onClick={() => voteOnClick(1)}>vote up</button>
-          <button onClick={() => voteOnClick(-1)}>vote down</button>{" "}
-          {comment_count}💬{" "}
-          <button
-            onClick={() => navigate(`../articles/id/${article_id}/comments`)}
-          >
-            comments
-          </button>
+        <p className="fst-italic">
+          by {author} <br />
+          {dateFormatted} <br />
+          <Link to={`../articles/${topic}`}>{topic}</Link>
         </p>
+
+        <h3 className="d-flex align-items-end justify-content-end flex-grow-1">
+          {voteCounter}
+          &nbsp;
+          <Link to="">
+            <FontAwesomeIcon
+              className="mb-1"
+              onClick={() => {
+                voteOnClick(+1);
+              }}
+              icon={icon({ name: "thumbs-up" })}
+            />
+          </Link>
+          &nbsp;
+          <Link className="link-secondary" to="">
+            <FontAwesomeIcon
+              onClick={() => voteOnClick(-1)}
+              icon={icon({ name: "thumbs-down" })}
+            />
+          </Link>
+        </h3>
       </div>
     </div>
   );

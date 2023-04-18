@@ -1,17 +1,15 @@
 import { useState, createContext, useEffect } from "react";
 import { getUsers } from "../utils/ApiCalls";
 
-// user
-
+// user context
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     username: "guest",
     name: "Guest",
-    avatar_url:
-      "https://static.vecteezy.com/system/resources/previews/000/440/213/original/question-mark-vector-icon.jpg",
-    permission: false,
+    avatar_url: require("../assets/user-avatar-placeholder.webp"),
+    permission: true,
   });
 
   return (
@@ -21,12 +19,11 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// users
-
+// users context
 export const UsersContext = createContext();
 
 export const UsersProvider = ({ children }) => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(null);
 
   useEffect(() => {
     getUsers().then((users) => {
@@ -38,5 +35,18 @@ export const UsersProvider = ({ children }) => {
     <UsersContext.Provider value={{ users, setUsers }}>
       {children}
     </UsersContext.Provider>
+  );
+};
+
+// users context
+export const OffCanvasContext = createContext();
+
+export const OffCanvasProvider = ({ children }) => {
+  const [offCanvas, setOffCanvas] = useState({ show: false, content: null });
+
+  return (
+    <OffCanvasContext.Provider value={{ offCanvas, setOffCanvas }}>
+      {children}
+    </OffCanvasContext.Provider>
   );
 };
