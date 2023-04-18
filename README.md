@@ -1,6 +1,6 @@
-# Northcoders News Website
+# Northcoders News Website <br> https://nc-news-website.onrender.com
 
-The NC News Website allows users to view, filter, vote and comment on news articles hosted on the NC-News Api (https://github.com/morgan-redgrove/portfolio-news-api). This project is built using React and styled using Sass and Bootstrap.
+The NC News Website allows users to view, filter, vote and comment on news articles hosted on the NC-News Api (https://github.com/morgan-redgrove/portfolio-news-api). This project is built using React and styled using Sass and Bootstrap, a hosted version can be found on render using the link above.
 
 ## :wrench: Installation and Setup
 
