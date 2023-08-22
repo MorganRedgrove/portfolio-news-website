@@ -86,7 +86,7 @@ export const CommentCard = ({ comment, setRefresh }) => {
     <div className="d-flex mb-5">
       <div className="d-flex flex-column col-2 align-items-center me-3">
         <Image
-          className="border border-secondary mb-2"
+          className=" border border-secondary border-2 mb-2"
           src={avatar}
           alt={author}
           roundedCircle={true}
