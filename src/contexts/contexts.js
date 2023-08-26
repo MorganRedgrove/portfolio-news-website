@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
     username: "guest",
     name: "Guest",
     avatar_url: require("../assets/user-avatar-placeholder.webp"),
-    permission: true,
+    permission: false,
   });
 
   return (
@@ -38,7 +38,7 @@ export const UsersProvider = ({ children }) => {
   );
 };
 
-// users context
+// off-canvas context
 export const OffCanvasContext = createContext();
 
 export const OffCanvasProvider = ({ children }) => {

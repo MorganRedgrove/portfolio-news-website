@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 
@@ -15,6 +16,7 @@ export const Banner = () => {
   } = useContext(UserContext);
 
   const { setOffCanvas } = useContext(OffCanvasContext);
+  const { setUser } = useContext(UserContext);
 
   return (
     <Navbar
@@ -28,21 +30,25 @@ export const Banner = () => {
       }}
     >
       <Container>
-        <Navbar.Brand className="fs-3" href="/">
+        <Navbar.Brand className="fs-3" as={Link} to="/">
           <FontAwesomeIcon icon={icon({ name: "globe" })} /> Northcoders News
         </Navbar.Brand>
 
         <Navbar.Toggle />
 
         <Nav className="d-none d-md-flex align-items-center justify-content-start flex-grow-1 fs-5">
-          <Nav.Link href="/articles">Articles</Nav.Link>
+          <Nav.Link as={Link} to="/articles">
+            Articles
+          </Nav.Link>
 
           <NavDropdown title="Topics">
-            <NavDropdown.Item href="/articles/coding">Coding</NavDropdown.Item>
-            <NavDropdown.Item href="/articles/cooking">
+            <NavDropdown.Item as={Link} to="/articles/coding">
+              Coding
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/articles/cooking">
               Cooking
             </NavDropdown.Item>
-            <NavDropdown.Item href="/articles/football">
+            <NavDropdown.Item as={Link} to="/articles/football">
               Football
             </NavDropdown.Item>
           </NavDropdown>
@@ -83,7 +89,22 @@ export const Banner = () => {
                   setOffCanvas({ show: true, content: "user" });
                 }}
               >
-                {username}
+                {name}
+              </Nav.Link>
+
+              <Nav.Link
+                title="Logout"
+                href=""
+                onClick={() => {
+                  setUser({
+                    username: "guest",
+                    name: "Guest",
+                    avatar_url: require("../assets/user-avatar-placeholder.webp"),
+                    permission: false,
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon={icon({ name: "right-from-bracket" })} />
               </Nav.Link>
 
               <Nav.Link

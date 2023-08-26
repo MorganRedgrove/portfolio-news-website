@@ -83,3 +83,19 @@ export const patchComment = (comment_id, inc_votes, username) => {
     return response.data.comment;
   });
 };
+
+export const patchLogin = (username, password) => {
+  const body = { username, password };
+
+  return apiCaller.patch(`/login`, body).then((response) => {
+    return response.data.match;
+  });
+};
+
+export const postUser = (username, password, name, avatar_url) => {
+  const body = { password, name, avatar_url };
+
+  return apiCaller.post(`/users/${username}`, body).then((response) => {
+    return response.data.user;
+  });
+};
