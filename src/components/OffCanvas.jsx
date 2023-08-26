@@ -63,6 +63,8 @@ export const OffCanvas = ({ username, name, avatar_url }) => {
             setUser(user);
             handleClose();
           });
+        } else {
+          setError("Username or password incorrect");
         }
       })
       .catch((err) => {
@@ -94,6 +96,7 @@ export const OffCanvas = ({ username, name, avatar_url }) => {
       warningPassword: null,
       warningAvatar: null,
     });
+    setError(null);
     setOffCanvas({ show: false, content: null });
   };
 
