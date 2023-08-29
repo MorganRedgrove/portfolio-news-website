@@ -12,7 +12,6 @@ export const formChecker = (form, setValid, setWarning) => {
     passwordChecker(formPassword),
     imageChecker(formAvatar),
   ]).then((checkerArr) => {
-    console.log("promise returns >>>", checkerArr);
     setValid(checkerArr.every(({ valid }) => valid));
     setWarning({
       usernameWarning: checkerArr[0].msg,
